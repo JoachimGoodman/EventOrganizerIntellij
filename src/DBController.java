@@ -16,8 +16,13 @@ public class DBController {
 
                 stmt.execute(sq1);
 
+            while (rs.next())
+            {
+                rs.getInt("ID");
+            }
+
+            rs.close();
             stmt.close();
-            conn.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
