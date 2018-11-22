@@ -1,24 +1,22 @@
 import java.sql.*;
 
-public class DBController {
+public abstract class DBController {
 
-    public DBController(String sql){
+    public static String Controller(String sql){
         String url = "jdbc:sqlite:resources/EODatabase.db";
-
-        String sq1 = "SELECT * FROM Arrangement";
 
         try {
             Connection conn = DriverManager.getConnection(url);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
 
-                System.out.println(rs.getInt("ID"));
+                //System.out.println(rs.getInt("ID"));
 
-                stmt.execute(sq1);
+                //stmt.execute(sq1);
 
             while (rs.next())
             {
-                rs.getInt("ID");
+                return rs.getString("USERNAME");
             }
 
             rs.close();
@@ -26,5 +24,6 @@ public class DBController {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return "Failed";
     }
 }
