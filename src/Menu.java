@@ -31,7 +31,18 @@ public class Menu {
         JButton confirm = new JButton("Confirm");
         confirm.addActionListener(e -> {
             String check = username.getText();
-            label.setText("Test: " + DBController.Controller("SELECT PASSWORD FROM LogIn WHERE USERNAME = 'Testing'"));
+            String check2 = password.getText();
+            if(!check.equals(DBLogin.checkUsername(check))){
+                label.setText("No such Username");
+            }
+            else{
+                if(check2.equals(DBLogin.checkPassword(check))){
+                    label.setText("Congratz Faggot");
+                }
+                else{
+                    label.setText("Wrong Password");
+                }
+            }
         });
 
         username.setBounds(300,200, 200, 20);
