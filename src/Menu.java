@@ -44,7 +44,11 @@ public class Menu { // har programmets struktur
             } else {
                 if (check2.equals(DBLogin.checkPassword(check))) {
                     contentPane.remove(setupPanel);
+<<<<<<< Updated upstream
                     contentPane.add(SecreteryPanel());
+=======
+                    contentPane.add(SecreteryPane());
+>>>>>>> Stashed changes
                     frame.revalidate();
                     frame.repaint();
                 } else {
@@ -73,7 +77,13 @@ public class Menu { // har programmets struktur
         JPanel setupPanel = new JPanel();
         setupPanel.setLayout(null);
 
-        //Skriv her
+        setupPanel.add(makeLabel("Arrangement", 50, 50, 200, 20, 18));
+        JButton createButton = makeButton("Opret", 50, 100, 50, 20, 14);
+        JButton importButton = makeButton("Importer", 125, 100, 50, 20, 14);
+        JButton exportButton = makeButton("Eksporter", 200, 100, 50, 20, 14);
+        setupPanel.add(createButton);
+        setupPanel.add(importButton);
+        setupPanel.add(exportButton);
 
         return setupPanel;
     }
