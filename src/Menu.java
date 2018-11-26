@@ -43,7 +43,10 @@ public class Menu { // har programmets struktur
                 LError.setText("No such Username"); // opdaterer label methode
             } else {
                 if (check2.equals(DBLogin.checkPassword(check))) {
-                    LError.setText("Congratz Faggot");
+                    contentPane.remove(setupPanel);
+                    contentPane.add(navigationPane());
+                    frame.revalidate();
+                    frame.repaint();
                 } else {
                     LError.setText("Wrong Password");
                 }
@@ -65,6 +68,23 @@ public class Menu { // har programmets struktur
 
         return setupPanel;
     }
+
+    private JPanel navigationPane(){
+        JPanel setupPanel = new JPanel();
+        setupPanel.setLayout(null);
+
+        return setupPanel;
+    }
+
+
+
+
+
+
+
+
+
+
 
 
     //Metode til nemt at lave labels
