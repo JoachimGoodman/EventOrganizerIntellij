@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.table.TableColumn;
 import java.awt.*;
 
 public class Menu { // har programmets struktur
@@ -15,7 +16,8 @@ public class Menu { // har programmets struktur
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // giver JFrame default settings. (tryk på kryds for at lukke programmet)
 
-        contentPane.add(login()); // tilføjer vores method som en panel ind i vores container
+        //contentPane.add(login()); // tilføjer vores method som en panel ind i vores container
+        contentPane.add(SecreteryPanel());
 
         frame.setVisible(true); // false som default. derfor gør vi det visible
     }
@@ -43,14 +45,10 @@ public class Menu { // har programmets struktur
                 LError.setText("No such Username"); // opdaterer label methode
             } else {
                 if (check2.equals(DBLogin.checkPassword(check))) {
-                    contentPane.remove(setupPanel);
-<<<<<<< Updated upstream
-                    contentPane.add(SecreteryPanel());
-=======
-                    contentPane.add(SecreteryPane());
->>>>>>> Stashed changes
-                    frame.revalidate();
-                    frame.repaint();
+                    contentPane.remove(setupPanel); //fjerner loginsiden.
+                    contentPane.add(SecreteryPanel()); //ligger Arrangement op.
+                    frame.revalidate(); //det her skal man gøre. Den revaliderer.
+                    frame.repaint(); // det her skal man gøre. Den repainter.
                 } else {
                     LError.setText("Wrong Password");
                 }
@@ -77,10 +75,15 @@ public class Menu { // har programmets struktur
         JPanel setupPanel = new JPanel();
         setupPanel.setLayout(null);
 
+        JButton createButton = makeButton("Opret", 50, 100, 100, 25, 14);
+        JButton importButton = makeButton("Importer", 125, 100, 100, 25, 14);
+        JButton exportButton = makeButton("Eksporter", 200, 100, 100, 25, 14);
+
+        for(int i = 0; i < DBLogin.getTitle().size(); i++){
+            setupPanel.add(makeLabel(DBLogin.getTitle().get(i),50, 200+i, 200, 20, 18));
+        }
+
         setupPanel.add(makeLabel("Arrangement", 50, 50, 200, 20, 18));
-        JButton createButton = makeButton("Opret", 50, 100, 50, 20, 14);
-        JButton importButton = makeButton("Importer", 125, 100, 50, 20, 14);
-        JButton exportButton = makeButton("Eksporter", 200, 100, 50, 20, 14);
         setupPanel.add(createButton);
         setupPanel.add(importButton);
         setupPanel.add(exportButton);

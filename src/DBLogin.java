@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.ArrayList;
 
 public abstract class DBLogin {
 
@@ -44,5 +45,27 @@ public abstract class DBLogin {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+
+    public static ArrayList<String> getTitle(){
+
+        ArrayList<String> arr = new ArrayList<>();
+        try {
+            Connection conn = DriverManager.getConnection(url);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT NAME FROM Arrangement");
+
+            while (rs.next())
+            {
+                arr.add(rs.getString("NAME"));
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+         return arr;
     }
 }
