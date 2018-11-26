@@ -6,12 +6,12 @@ public class Menu { // har programmets struktur
     private JFrame frame; // primære window
     private Container contentPane; // det som er inden for vinduet
 
-    public Menu(){
+    public Menu() {
         frame = new JFrame("Event Organizer"); // new object af vinduet, og giver det title
 
-        contentPane = frame.getContentPane(); // indsætter en container ind i container
+        contentPane = frame.getContentPane(); // indsætter en container ind i vinduet
 
-        frame.setSize(800,600); // giver vinduet et størrelse
+        frame.setSize(800, 600); // giver vinduet et størrelse
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // giver JFrame default settings. (tryk på kryds for at lukke programmet)
 
@@ -20,42 +20,75 @@ public class Menu { // har programmets struktur
         frame.setVisible(true); // false som default. derfor gør vi det visible
     }
 
-    private JPanel login(){ // method som retunere et panel
-        JPanel setupPanel = new JPanel(); // nyt objekt
-        setupPanel.setLayout(null); // sætter layout til null for at kunne sætte tingene frit.
+    private JPanel login() { // method som retunere et panel
+        JPanel setupPanel = new JPanel(); // nyt objekt af en Panel type til at kunne indsætte "content" i vores frame
+        setupPanel.setLayout(null); // sætter layout til null for ikke at være låst af Javas standard layouts og kunne rykke ting frit rundt
 
-        JTextField username = new JTextField(); // newer et felt vi kan skrive i
+        //Newer 2 textfields til username og password, med koordinatsæt og størrelse
+        JTextField username = new JTextField();
+        username.setBounds((frame.getWidth()/2)-(200/2), 225, 200, 20);
         JTextField password = new JTextField();
-        JLabel label = new JLabel(); // output text felt.
-        JButton confirm = new JButton("Confirm"); // laver knap med title
+        password.setBounds((frame.getWidth()/2)-(200/2), 275, 200, 20);
+
+        //Laver en Error label uden tekst da denne skal skiftes alt efter hvilken fejl der forekommer senere
+        JLabel LError = makeLabel("", -1, 310, 200, 20, 18); // Error label
+        LError.setForeground(Color.RED);
+
+        //Laver en knap med koordinatsæt og størrelse
+        JButton confirm = makeButton("Confirm", (frame.getWidth()/2)-(200/2), 350, 200, 50, 20);
         confirm.addActionListener(e -> { // bruger lambda udtryk for at simplificere actionlistener method
             String check = username.getText(); // tager det tekst der står i textfeltet
             String check2 = password.getText();
-            if(!check.equals(DBLogin.checkUsername(check))){  // bruger checkUsername methode for at checke om username stemmer over ens med det som er skrevet i tekstfeltet
-                label.setText("No such Username"); // opdaterer label methode
-            }
-            else{
-                if(check2.equals(DBLogin.checkPassword(check))){
-                    label.setText("Congratz Faggot");
-                }
-                else{
-                    label.setText("Wrong Password");
+            if (!check.equals(DBLogin.checkUsername(check))) {  // bruger checkUsername methode for at checke om username stemmer over ens med det som er skrevet i tekstfeltet
+                LError.setText("No such Username"); // opdaterer label methode
+            } else {
+                if (check2.equals(DBLogin.checkPassword(check))) {
+                    LError.setText("Congratz Faggot");
+                } else {
+                    LError.setText("Wrong Password");
                 }
             }
         });
 
-        // koordinater og højde/bredde til tekst og knapper
-        username.setBounds(300,200, 200, 20);
-        password.setBounds(300,300,200,20);
-        confirm.setBounds(300, 400, 200, 50);
-        label.setBounds(400,100, 200, 20);
-
-        // tilføjer alt til panelet
+        // tilføjer vores textfelter, knap og yderligere labels
         setupPanel.add(username);
         setupPanel.add(password);
         setupPanel.add(confirm);
-        setupPanel.add(label);
+        setupPanel.add(LError);
+
+        //Title label
+        setupPanel.add(makeLabel("PlanOrgan", -1, 100, 240, 100, 50));
+        //Username label
+        setupPanel.add(makeLabel("Username", -1, 200, 200, 20, 18));
+        //Password label
+        setupPanel.add(makeLabel("Password", -1, 250, 200, 20, 18));
 
         return setupPanel;
+    }
+
+
+    //Metode til nemt at lave labels
+    private JLabel makeLabel(String title, int x, int y, int width, int height, int size) {
+        JLabel label = new JLabel(title);
+
+        if(x == -1){
+            label.setBounds((frame.getWidth()/2)-(width/2), y, width, height);
+        }else{
+            label.setBounds(x, y, width, height);
+        }
+        label.setFont(new Font("Arial", Font.PLAIN, size));
+
+        return label;
+    }
+
+    //Metode til nemt at lave knapper
+    private JButton makeButton(String title, int x, int y, int width, int height, int size) {
+        JButton button = new JButton(title);
+        button.setBounds(x, y, width, height);
+        button.setFont(new Font("Arial", Font.PLAIN, size));
+        button.setBackground(Color.BLACK);
+        button.setForeground(Color.WHITE);
+
+        return button;
     }
 }
