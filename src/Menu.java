@@ -5,12 +5,9 @@ public class Menu {
 
     private JFrame frame;
     private Container contentPane;
-    private JPanel setupPanel;
 
     public Menu(){
         frame = new JFrame("Event Organizer");
-        setupPanel = new JPanel();
-        setupPanel.setLayout(null);
 
         contentPane = frame.getContentPane();
 
@@ -18,13 +15,15 @@ public class Menu {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        contentPane.add(setupPanel);
-        login();
+        contentPane.add(login());
 
         frame.setVisible(true);
     }
 
-    public void login(){
+    private JPanel login(){
+        JPanel setupPanel = new JPanel();
+        setupPanel.setLayout(null);
+
         JTextField username = new JTextField();
         JTextField password = new JTextField();
         JLabel label = new JLabel();
@@ -54,5 +53,7 @@ public class Menu {
         setupPanel.add(password);
         setupPanel.add(confirm);
         setupPanel.add(label);
+
+        return setupPanel;
     }
 }
