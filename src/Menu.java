@@ -44,7 +44,7 @@ public class Menu { // har programmets struktur
             } else {
                 if (check2.equals(DBLogin.checkPassword(check))) {
                     contentPane.remove(setupPanel);
-                    contentPane.add(navigationPane());
+                    contentPane.add(SecreteryPanel());
                     frame.revalidate();
                     frame.repaint();
                 } else {
