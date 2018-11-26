@@ -69,9 +69,11 @@ public class Menu { // har programmets struktur
         return setupPanel;
     }
 
-    private JPanel navigationPane(){
+    private JPanel SecreteryPane(){
         JPanel setupPanel = new JPanel();
         setupPanel.setLayout(null);
+
+        //Skriv her
 
         return setupPanel;
     }
