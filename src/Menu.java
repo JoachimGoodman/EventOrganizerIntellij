@@ -60,7 +60,7 @@ public class Menu { // har programmets struktur
         setupPanel.add(LError);
 
         //Title label
-        setupPanel.add(makeLabel("PlanOrgan", -1, 100, 240, 100, 50));
+        setupPanel.add(makeLabel("PlanOrgan", -1, 100, 250, 100, 50));
         //Username label
         setupPanel.add(makeLabel("Username", -1, 200, 200, 20, 18));
         //Password label
