@@ -22,10 +22,11 @@ public class Menu { // har programmets struktur
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // giver JFrame default settings. (tryk på kryds for at lukke programmet)
 
-        contentPane.add(login()); // tilføjer vores method som en panel ind i vores container
+        /////////Disable for testing//////
+        //contentPane.add(login()); // tilføjer vores method som en panel ind i vores container
 
-        /////////For Testing//////////////
-        //contentPane.add(secretaryPanel());
+        /////////Enable for Testing//////////////
+        contentPane.add(secretaryPanel());
 
         frame.setVisible(true); // false som default. derfor gør vi det visible
     }
@@ -87,17 +88,17 @@ public class Menu { // har programmets struktur
         JPanel setupPanel = new JPanel();
         setupPanel.setLayout(null);
 
-        setupPanel.add(makeLabel("Arrangement", 50, 50, 200, 20, 18));
-        JButton createButton = makeButton("Opret", 50, 100, 100, 25, 14);
-        JButton importButton = makeButton("Importer", 125, 100, 100, 25, 14);
-        JButton exportButton = makeButton("Eksporter", 200, 100, 100, 25, 14);
+        setupPanel.add(makeLabel("Arrangement", 50, 100, 200, 20, 18));
+        JButton createButton = makeButton("Opret", 50, 25, 100, 25, 14);
+        JButton importButton = makeButton("Importer", 175, 25, 100, 25, 14);
+        JButton exportButton = makeButton("Eksporter", 300, 25, 100, 25, 14);
 
         //Tilføjer labels med navnene fra alle vores arrangementer og tilføjer de tre billedeknapper per navn til yderligere funktion
         for(int i = 0; i < allArrangements.size(); i++){
-            setupPanel.add(makeLabel(allArrangements.get(i).getName(), 50, 200+(50*i), 200, 20, 18));
-            setupPanel.add(makeImageButton(300, 200+(50*i), 20, 20, "resources/recycle_bin_20_20.png"));
-            setupPanel.add(makeImageButton(322, 200+(50*i), 20, 20, "resources/tools_20_20.png"));
-            setupPanel.add(makeImageButton(344, 200+(50*i), 20, 20, "resources/inspect_20_20.png"));
+            setupPanel.add(makeLabel(allArrangements.get(i).getName(), 50, 140+(35*i), 200, 20, 14));
+            setupPanel.add(makeImageButton(400, 140+(35*i), 20, 20, "resources/recycle_bin_20_20.png"));
+            setupPanel.add(makeImageButton(422, 140+(35*i), 20, 20, "resources/tools_20_20.png"));
+            setupPanel.add(makeImageButton(444, 140+(35*i), 20, 20, "resources/inspect_20_20.png"));
         }
 
         setupPanel.add(createButton);
