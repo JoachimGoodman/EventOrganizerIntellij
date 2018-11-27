@@ -95,6 +95,7 @@ public class Menu { // har programmets struktur
 
         //Tilføjer labels med navnene fra alle vores arrangementer og tilføjer de tre billedeknapper per navn til yderligere funktion
         for(int i = 0; i < allArrangements.size(); i++){
+            setupPanel.add(makeLabel(""+allArrangements.get(i).getId(), 25, 140+(35*i), 200, 20, 14));
             setupPanel.add(makeLabel(allArrangements.get(i).getName(), 50, 140+(35*i), 200, 20, 14));
             setupPanel.add(makeImageButton(400, 140+(35*i), 20, 20, "resources/recycle_bin_20_20.png"));
             setupPanel.add(makeImageButton(422, 140+(35*i), 20, 20, "resources/tools_20_20.png"));

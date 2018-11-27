@@ -82,6 +82,7 @@ public class DBLogin {
             while (rs.next())
             {
                 arrangementList.add(new Arrangement(
+                        rs.getInt("ID"),
                         rs.getString("NAME"),
                         rs.getDouble("TOTAL"),
                         rs.getInt("TIME"),
