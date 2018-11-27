@@ -23,10 +23,13 @@ public class Menu { // har programmets struktur
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // giver JFrame default settings. (tryk på kryds for at lukke programmet)
 
         /////////Disable for testing//////
-        //contentPane.add(login()); // tilføjer vores method som en panel ind i vores container
+        contentPane.add(login()); // tilføjer vores method som en panel ind i vores container
 
-        /////////Enable for Testing//////////////
-        contentPane.add(secretaryPanel());
+        /////////Enable for Testing///////////
+        //contentPane.add(secretaryPanel());
+
+        /////////Enable for Testing///////////
+        //contentPane.add(arrangementPanel());
 
         frame.setVisible(true); // false som default. derfor gør vi det visible
     }
@@ -89,7 +92,7 @@ public class Menu { // har programmets struktur
         setupPanel.setLayout(null);
 
         if(isPowerUser) {
-            setupPanel.add(makeLabel("Arrangementer", 50, 100, 200, 20, 18));
+            setupPanel.add(makeLabel("Arrangementer:", 50, 100, 200, 20, 18));
             JButton createButton = makeButton("Opret", 50, 25, 100, 25, 14);
             JButton exportButton = makeButton("Eksporter", 300, 25, 100, 25, 14);
 
@@ -110,8 +113,26 @@ public class Menu { // har programmets struktur
             setupPanel.add(importButton);
 
         return setupPanel;
+
+
     }
 
+    private JPanel arrangementPanel(){
+        JPanel setupPanel = new JPanel();
+        setupPanel.setLayout(null);
+        JButton createButton = makeButton("Opret", 650, 25, 100, 25, 14);
+        setupPanel.add(makeLabel("Events:", 50, 100, 200, 20, 18));
+
+
+
+        //setupPanel.add(makeLabel(""+allArrangements.get().", 50, 100, 200, 20, 18));
+
+        setupPanel.add(createButton);
+
+
+
+        return setupPanel;
+    }
 
 
 
