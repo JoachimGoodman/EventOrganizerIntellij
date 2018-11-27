@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.table.TableColumn;
 import java.awt.*;
 
 public class Menu { // har programmets struktur
@@ -20,7 +19,7 @@ public class Menu { // har programmets struktur
         contentPane.add(login()); // tilføjer vores method som en panel ind i vores container
 
         /////////For Testing//////////////
-        //contentPane.add(secreteryPanel());
+        //contentPane.add(secretaryPanel());
 
         frame.setVisible(true); // false som default. derfor gør vi det visible
     }
@@ -57,7 +56,7 @@ public class Menu { // har programmets struktur
                 LError.setText("No such Username"); // opdaterer label methode
             } else {
                 if (loginAccess.checkPassword(usernameInput, passwordInput)) {
-                    changePanel(setupPanel, secreteryPanel());
+                    changePanel(setupPanel, secretaryPanel());
                 } else {
                     LError.setText("Wrong Password");
                 }
@@ -74,10 +73,11 @@ public class Menu { // har programmets struktur
         return setupPanel;
     }
 
-    private JPanel secreteryPanel(){
+    private JPanel secretaryPanel(){
         JPanel setupPanel = new JPanel();
         setupPanel.setLayout(null);
 
+        setupPanel.add(makeLabel("Arrangement", 50, 50, 200, 20, 18));
         JButton createButton = makeButton("Opret", 50, 100, 100, 25, 14);
         JButton importButton = makeButton("Importer", 125, 100, 100, 25, 14);
         JButton exportButton = makeButton("Eksporter", 200, 100, 100, 25, 14);
@@ -86,7 +86,6 @@ public class Menu { // har programmets struktur
             setupPanel.add(makeLabel(loginAccess.getTitle().get(i),50, 200+i, 200, 20, 18));
         }
 
-        setupPanel.add(makeLabel("Arrangement", 50, 50, 200, 20, 18));
         setupPanel.add(createButton);
         setupPanel.add(importButton);
         setupPanel.add(exportButton);

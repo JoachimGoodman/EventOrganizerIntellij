@@ -70,4 +70,31 @@ public class DBLogin {
         }
          return arr;
     }
+    public ArrayList<Arrangement> getArrangements(){
+        ArrayList<Arrangement> arrangementList = new ArrayList<>();
+
+        try {
+            Connection conn = DriverManager.getConnection(url);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Arrangement");
+
+            while (rs.next())
+            {
+                arrangementList.add(new Arrangement(
+                        rs.getString("NAME"),
+                        rs.getDouble("TOTAL"),
+                        rs.getInt("TIME"),
+                        rs.getInt("EVENTS"),
+                        rs.getInt("ATTENDEES")
+                ));
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return arrangementList;
+    }
 }
