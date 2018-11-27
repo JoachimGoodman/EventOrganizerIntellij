@@ -1,11 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Menu { // har programmets struktur
 
     private JFrame frame; // primære window
     private Container contentPane; // det som er inden for vinduet
     private DBLogin loginAccess = new DBLogin();
+    private ArrayList<Arrangement> allArrangements = loginAccess.getArrangements();
 
     public Menu() {
         frame = new JFrame("Event Organizer"); // new object af vinduet, og giver det title
@@ -82,8 +84,8 @@ public class Menu { // har programmets struktur
         JButton importButton = makeButton("Importer", 125, 100, 100, 25, 14);
         JButton exportButton = makeButton("Eksporter", 200, 100, 100, 25, 14);
 
-        for(int i = 0; i < loginAccess.getTitle().size(); i++){
-            setupPanel.add(makeLabel(loginAccess.getTitle().get(i),50, 200+i, 200, 20, 18));
+        for(int i = 0; i < allArrangements.size(); i++){
+            setupPanel.add(makeLabel(allArrangements.get(i).getName(), 50, 200+(50*i), 200, 20, 18));
         }
 
         setupPanel.add(createButton);

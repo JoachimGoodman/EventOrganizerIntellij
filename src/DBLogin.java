@@ -49,27 +49,6 @@ public class DBLogin {
         return correctPassword;
     }
 
-    public ArrayList<String> getTitle(){
-
-        ArrayList<String> arr = new ArrayList<>();
-        try {
-            Connection conn = DriverManager.getConnection(url);
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT NAME FROM Arrangement");
-
-            while (rs.next())
-            {
-                arr.add(rs.getString("NAME"));
-            }
-
-            rs.close();
-            stmt.close();
-            conn.close();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-         return arr;
-    }
     public ArrayList<Arrangement> getArrangements(){
         ArrayList<Arrangement> arrangementList = new ArrayList<>();
 

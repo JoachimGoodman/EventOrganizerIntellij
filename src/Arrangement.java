@@ -13,6 +13,9 @@ public class Arrangement {
         this.numberOfEvents = numberOfEvents;
         this.participants = participations; // comment
     }
+    public String getName(){
+        return name;
+    }
     public String show(){
         return name +
                 totalPrice +
