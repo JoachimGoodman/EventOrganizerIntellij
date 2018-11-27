@@ -13,7 +13,7 @@ public class Arrangement {
         this.totalPrice = totalPrice;
         this.duration = duration;
         this.numberOfEvents = numberOfEvents;
-        this.participations = participations;
+        this.participations = participations; // comment
     }
 
 
