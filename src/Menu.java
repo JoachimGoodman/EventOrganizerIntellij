@@ -11,6 +11,7 @@ public class Menu { // har programmets struktur
     private Container contentPane; // det som er inden for vinduet
     private DBLogin loginAccess = new DBLogin();
     private ArrayList<Arrangement> allArrangements = loginAccess.getArrangements();
+    private Arrangement currentArrangement;
     private boolean isPowerUser;
 
     public Menu() {
@@ -100,10 +101,24 @@ public class Menu { // har programmets struktur
             for (int i = 0; i < allArrangements.size(); i++) {
                 setupPanel.add(makeLabel("" + allArrangements.get(i).getId(), 30, 140 + (35 * i), 200, 20, 14));
                 setupPanel.add(makeLabel(allArrangements.get(i).getName(), 50, 140 + (35 * i), 200, 20, 14));
-                setupPanel.add(makeImageButton(400, 140 + (35 * i), 20, 20, "resources/recycle_bin_20_20.png"));
-                setupPanel.add(makeImageButton(422, 140 + (35 * i), 20, 20, "resources/tools_20_20.png"));
-                setupPanel.add(makeImageButton(444, 140 + (35 * i), 20, 20, "resources/inspect_20_20.png"));
+                JButton recycleButton = makeImageButton(400, 140 + (35 * i), 20, 20, "resources/recycle_bin_20_20.png");
+                recycleButton.addActionListener(e -> {
+
+                });
+                JButton toolsButton = makeImageButton(422, 140 + (35 * i), 20, 20, "resources/tools_20_20.png");
+                toolsButton.addActionListener(e -> {
+
+                });
+                JButton inspectButton = makeImageButton(444, 140 + (35 * i), 20, 20, "resources/inspect_20_20.png");
+                inspectButton.addActionListener(e -> {
+
+                });
+
                 setupPanel.add(makeLabel("_________________________________________", 25, 130 + (35 * i), 600, 50, 20));
+
+                setupPanel.add(recycleButton);
+                setupPanel.add(toolsButton);
+                setupPanel.add(inspectButton);
             }
 
             setupPanel.add(createButton);
@@ -174,7 +189,7 @@ public class Menu { // har programmets struktur
         frame.revalidate();
         frame.repaint();
     }
-    //Metode til at lave billedeknapper
+    //Metode til at lave en billedeknap
     private JButton makeImageButton(int x, int y, int width, int height, String path){
         JButton imageButton = null;
         try {
