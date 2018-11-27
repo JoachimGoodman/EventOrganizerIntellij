@@ -143,11 +143,9 @@ public class Menu { // har programmets struktur
         JPanel setupPanel = new JPanel();
         setupPanel.setLayout(null);
         JButton createButton = makeButton("Opret", 650, 25, 100, 25, 14);
-        setupPanel.add(makeLabel("Events:", 50, 100, 200, 20, 18));
+        setupPanel.add(makeLabel(""+currentArrangement.getName(), 50, 50, 200, 20, 18));
+        setupPanel.add(makeLabel("Events:", 50, 100, 200, 20, 16));
 
-
-
-        //setupPanel.add(makeLabel(""+allArrangements.get().", 50, 100, 200, 20, 18));
 
         setupPanel.add(createButton);
 
