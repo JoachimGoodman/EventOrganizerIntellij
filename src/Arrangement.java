@@ -4,15 +4,20 @@ public class Arrangement {
     double totalPrice;
     int duration;
     int numberOfEvents;
-    int participations;
+    int participants;
 
     public Arrangement(String name, double totalPrice, int duration, int numberOfEvents, int participations){
         this.name = name;
         this.totalPrice = totalPrice;
         this.duration = duration;
         this.numberOfEvents = numberOfEvents;
-        this.participations = participations; // comment
+        this.participants = participations; // comment
     }
-
-
+    public String show(){
+        return name +
+                totalPrice +
+                duration +
+                numberOfEvents +
+                participants;
+    }
 }
