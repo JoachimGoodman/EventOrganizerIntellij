@@ -49,6 +49,28 @@ public class DBLogin {
         return correctPassword;
     }
 
+    public boolean isPowerUser(String username){
+
+        boolean powerUser = false;
+
+        try {
+            Connection conn = DriverManager.getConnection(url);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT POWERUSER FROM LogIn WHERE USERNAME = '" + username + "'");
+
+            if(rs.getInt("POWERUSER") == 1) {
+                powerUser = true;
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return powerUser;
+    }
+
     public ArrayList<Arrangement> getArrangements(){
         ArrayList<Arrangement> arrangementList = new ArrayList<>();
 

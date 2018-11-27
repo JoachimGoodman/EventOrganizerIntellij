@@ -1,5 +1,8 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.*;
+import java.io.*;
 import java.util.ArrayList;
 
 public class Menu { // har programmets struktur
@@ -8,6 +11,7 @@ public class Menu { // har programmets struktur
     private Container contentPane; // det som er inden for vinduet
     private DBLogin loginAccess = new DBLogin();
     private ArrayList<Arrangement> allArrangements = loginAccess.getArrangements();
+    private boolean isPowerUser;
 
     public Menu() {
         frame = new JFrame("Event Organizer"); // new object af vinduet, og giver det title
@@ -40,11 +44,9 @@ public class Menu { // har programmets struktur
         //Opretter og tilføjer også yderligere labels til panelet
         JLabel LError = makeLabel("", -1, 310, 200, 20, 18); // Error label
         LError.setForeground(Color.RED);
-        //Title label
+
         setupPanel.add(makeLabel("PlanOrgan", -1, 100, 250, 100, 50));
-        //Username label
         setupPanel.add(makeLabel("Username", -1, 200, 200, 20, 18));
-        //Password label
         setupPanel.add(makeLabel("Password", -1, 250, 200, 20, 18));
 
 
@@ -58,6 +60,12 @@ public class Menu { // har programmets struktur
                 LError.setText("No such Username"); // opdaterer label methode
             } else {
                 if (loginAccess.checkPassword(usernameInput, passwordInput)) {
+                    if(loginAccess.isPowerUser(usernameInput)){
+                        isPowerUser = true;
+                    }
+                    else {
+                        isPowerUser = false;
+                    }
                     changePanel(setupPanel, secretaryPanel());
                 } else {
                     LError.setText("Wrong Password");
@@ -84,8 +92,12 @@ public class Menu { // har programmets struktur
         JButton importButton = makeButton("Importer", 125, 100, 100, 25, 14);
         JButton exportButton = makeButton("Eksporter", 200, 100, 100, 25, 14);
 
+        //Tilføjer labels med navnene fra alle vores arrangementer og tilføjer de tre billedeknapper per navn til yderligere funktion
         for(int i = 0; i < allArrangements.size(); i++){
             setupPanel.add(makeLabel(allArrangements.get(i).getName(), 50, 200+(50*i), 200, 20, 18));
+            setupPanel.add(makeImageButton(300, 200+(50*i), 20, 20, "resources/recycle_bin_20_20.png"));
+            setupPanel.add(makeImageButton(322, 200+(50*i), 20, 20, "resources/tools_20_20.png"));
+            setupPanel.add(makeImageButton(344, 200+(50*i), 20, 20, "resources/inspect_20_20.png"));
         }
 
         setupPanel.add(createButton);
@@ -135,5 +147,18 @@ public class Menu { // har programmets struktur
         contentPane.add(next);
         frame.revalidate();
         frame.repaint();
+    }
+    //Metode til at lave billedeknapper
+    private JButton makeImageButton(int x, int y, int width, int height, String path){
+        JButton imageButton = null;
+        try {
+            BufferedImage buttonIcon = ImageIO.read(new File(path));
+            imageButton = new JButton(new ImageIcon(buttonIcon));
+            imageButton.setBounds(x, y, width, height);
+            imageButton.setBorder(BorderFactory.createEmptyBorder());
+        } catch (IOException e){
+            System.out.println(e.getMessage());
+        }
+        return imageButton;
     }
 }
