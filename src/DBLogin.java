@@ -99,4 +99,20 @@ public class DBLogin {
         }
         return arrangementList;
     }
+
+    // DELETE ARRANGEMENT EVENTUELT NY CLASS SENERE
+    public void DeleteArrangement(int id){
+
+        try {
+            Connection conn = DriverManager.getConnection(url);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("DELETE FROM Arrangement WHERE id ="+id);
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
