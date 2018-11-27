@@ -102,8 +102,9 @@ public class Menu { // har programmets struktur
                 setupPanel.add(makeLabel("" + allArrangements.get(i).getId(), 30, 140 + (35 * i), 200, 20, 14));
                 setupPanel.add(makeLabel(allArrangements.get(i).getName(), 50, 140 + (35 * i), 200, 20, 14));
                 JButton recycleButton = makeImageButton(400, 140 + (35 * i), 20, 20, "resources/recycle_bin_20_20.png");
-                recycleButton.addActionListener(e -> {
 
+                recycleButton.addActionListener(e -> {
+                    loginAccess.deleteArrangement(allArrangements.get(finalI).getId());
                 });
                 JButton toolsButton = makeImageButton(422, 140 + (35 * i), 20, 20, "resources/tools_20_20.png");
                 toolsButton.addActionListener(e -> {

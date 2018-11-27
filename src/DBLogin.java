@@ -101,7 +101,7 @@ public class DBLogin {
     }
 
     // DELETE ARRANGEMENT EVENTUELT NY CLASS SENERE
-    public void DeleteArrangement(int id){
+    public void deleteArrangement(int id){
 
         try {
             Connection conn = DriverManager.getConnection(url);
