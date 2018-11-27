@@ -106,6 +106,9 @@ public class Menu { // har programmets struktur
 
                 recycleButton.addActionListener(e -> {
                     loginAccess.deleteArrangement(allArrangements.get(arrayIndex).getId());
+                    allArrangements.remove(arrayIndex);
+                    frame.revalidate();
+                    frame.repaint();
                 });
                 JButton toolsButton = makeImageButton(422, 140 + (35 * i), 20, 20, "resources/tools_20_20.png");
                 toolsButton.addActionListener(e -> {

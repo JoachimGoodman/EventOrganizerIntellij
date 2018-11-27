@@ -106,9 +106,8 @@ public class DBLogin {
         try {
             Connection conn = DriverManager.getConnection(url);
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("DELETE FROM Arrangement WHERE id ="+id);
-
-            rs.close();
+            stmt.execute("DELETE FROM Arrangement WHERE id ="+id);
+            
             stmt.close();
             conn.close();
         } catch (SQLException e) {
