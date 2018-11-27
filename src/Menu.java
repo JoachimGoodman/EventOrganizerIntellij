@@ -88,23 +88,26 @@ public class Menu { // har programmets struktur
         JPanel setupPanel = new JPanel();
         setupPanel.setLayout(null);
 
-        setupPanel.add(makeLabel("Arrangement", 50, 100, 200, 20, 18));
-        JButton createButton = makeButton("Opret", 50, 25, 100, 25, 14);
-        JButton importButton = makeButton("Importer", 175, 25, 100, 25, 14);
-        JButton exportButton = makeButton("Eksporter", 300, 25, 100, 25, 14);
+        if(isPowerUser) {
+            setupPanel.add(makeLabel("Arrangementer", 50, 100, 200, 20, 18));
+            JButton createButton = makeButton("Opret", 50, 25, 100, 25, 14);
+            JButton exportButton = makeButton("Eksporter", 300, 25, 100, 25, 14);
 
-        //Tilføjer labels med navnene fra alle vores arrangementer og tilføjer de tre billedeknapper per navn til yderligere funktion
-        for(int i = 0; i < allArrangements.size(); i++){
-            setupPanel.add(makeLabel(""+allArrangements.get(i).getId(), 25, 140+(35*i), 200, 20, 14));
-            setupPanel.add(makeLabel(allArrangements.get(i).getName(), 50, 140+(35*i), 200, 20, 14));
-            setupPanel.add(makeImageButton(400, 140+(35*i), 20, 20, "resources/recycle_bin_20_20.png"));
-            setupPanel.add(makeImageButton(422, 140+(35*i), 20, 20, "resources/tools_20_20.png"));
-            setupPanel.add(makeImageButton(444, 140+(35*i), 20, 20, "resources/inspect_20_20.png"));
+            //Tilføjer labels med navnene fra alle vores arrangementer og tilføjer de tre billedeknapper per navn til yderligere funktion
+            for (int i = 0; i < allArrangements.size(); i++) {
+                setupPanel.add(makeLabel("" + allArrangements.get(i).getId(), 30, 140 + (35 * i), 200, 20, 14));
+                setupPanel.add(makeLabel(allArrangements.get(i).getName(), 50, 140 + (35 * i), 200, 20, 14));
+                setupPanel.add(makeImageButton(400, 140 + (35 * i), 20, 20, "resources/recycle_bin_20_20.png"));
+                setupPanel.add(makeImageButton(422, 140 + (35 * i), 20, 20, "resources/tools_20_20.png"));
+                setupPanel.add(makeImageButton(444, 140 + (35 * i), 20, 20, "resources/inspect_20_20.png"));
+                setupPanel.add(makeLabel("_________________________________________", 25, 130 + (35 * i), 600, 50, 20));
+            }
+
+            setupPanel.add(createButton);
+            setupPanel.add(exportButton);
         }
-
-        setupPanel.add(createButton);
-        setupPanel.add(importButton);
-        setupPanel.add(exportButton);
+            JButton importButton = makeButton("Importer", 175, 25, 100, 25, 14);
+            setupPanel.add(importButton);
 
         return setupPanel;
     }
