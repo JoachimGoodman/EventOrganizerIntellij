@@ -65,4 +65,18 @@ public class DBArrangement {
         }
     }
 
+    // METODE TIL AT REDIGERE EKSITERENDE ARRANGEMENTER
+    public void editArrangement(String name, int participants, int getId) {
+        try {
+            Connection conn = DriverManager.getConnection(url);
+            Statement stmt = conn.createStatement();
+            stmt.execute("UPDATE Arrangement SET NAME = " + name + ", ATTENDEES = " + participants + " WHERE id = " + getId);
+
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 }
