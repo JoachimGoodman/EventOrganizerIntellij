@@ -21,6 +21,9 @@ public class Arrangement {
     public String getName(){
         return name;
     }
+    public int getParticipants(){
+        return participants;
+    }
     public String show(){
         return name +
                 totalPrice +
