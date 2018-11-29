@@ -11,6 +11,7 @@ public class Menu { // har programmets struktur
     private Container contentPane; // det som er inden for vinduet
     private DBLogin loginAccess = new DBLogin();
     private DBArrangement arrangementData = new DBArrangement();
+    private DBEvent eventData = new DBEvent();
     private ArrayList<Arrangement> allArrangements = arrangementData.getArrangements();
     private boolean isPowerUser;
 
@@ -123,6 +124,7 @@ public class Menu { // har programmets struktur
                 });
                 JButton inspectButton = makeImageButton(444, 80 + (35 * i), 20, 20, "resources/inspect_20_20.png");
                 inspectButton.addActionListener(e -> {
+                    arrangementData.getArrangements().get(arrayIndex).addEvent(eventData.getEvents(arrayIndex));
                     changePanel(overviewPanel, arrangementInfo(arrayIndex));
 
                 });

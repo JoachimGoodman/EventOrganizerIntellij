@@ -31,8 +31,8 @@ public class Arrangement {
         return participants;
     }
 
-    public void addEvent(Event event){
-        listOfEvents.add(event);
+    public void addEvent(ArrayList<Event> eventList){
+        listOfEvents = eventList;
     }
 
     public String show(){
