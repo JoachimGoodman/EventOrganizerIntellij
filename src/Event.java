@@ -20,19 +20,20 @@ public class Event {
         this.xDescription = xDescription;
     }
 
-        public String getEventName()
-        {
-            return name;
-        }
-        public String showEvent()
-        {
-            return name +
-                    totalPrice +
-                    description +
-                    eventtype +
-                    dateStart +
-                    dateEnd +
-                    facilitator +
-                    xDescription;
-        }
+    public String getEventName()
+    {
+        return name;
+    }
+
+    public String showEvent()
+    {
+        return name +
+                totalPrice +
+                description +
+                eventtype +
+                dateStart +
+                dateEnd +
+                facilitator +
+                xDescription;
+    }
 }
