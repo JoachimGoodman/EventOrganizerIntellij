@@ -101,7 +101,7 @@ public class Menu { // har programmets struktur
 
             JButton createButton = makeButton("Opret", 600, 150, 100, 25, 14);
             createButton.addActionListener(e -> {
-                changePanel(overviewPanel, createArrangement());
+                changePanel(overviewPanel, modifyArrangement(-1));
             });
             JButton exportButton = makeButton("Eksporter", 600, 200, 100, 25, 14);
 
@@ -119,7 +119,7 @@ public class Menu { // har programmets struktur
                 });
                 JButton toolsButton = makeImageButton(422, 80 + (35 * i), 20, 20, "resources/tools_20_20.png");
                 toolsButton.addActionListener(e -> {
-
+                    changePanel(overviewPanel, modifyArrangement(arrayIndex));
                 });
                 JButton inspectButton = makeImageButton(444, 80 + (35 * i), 20, 20, "resources/inspect_20_20.png");
                 inspectButton.addActionListener(e -> {
@@ -167,29 +167,33 @@ public class Menu { // har programmets struktur
         return arrangementInfoPanel;
     }
 
-    private JPanel createArrangement(){
-        JPanel createArrangementPanel = new JPanel();
-        createArrangementPanel.setLayout(null);
+    private JPanel modifyArrangement(int arrayIndex){
+        JPanel modifyArrangementPanel = new JPanel();
+        modifyArrangementPanel.setLayout(null);
 
-        JTextField name = makeTextField(-1, 75, 200, 20);
-        JTextField participants = makeTextField(-1, 125, 200, 20);
+        JTextField nameInput = makeTextField(-1, 75, 200, 20);
+        JTextField participantsInput = makeTextField(-1, 125, 200, 20);
 
-        createArrangementPanel.add((makeLabel("Arrangement Navn", -1, 50, 200, 20, 18)));
-        createArrangementPanel.add((makeLabel("Antal Deltagere", -1, 100, 200, 20, 18)));
+        modifyArrangementPanel.add((makeLabel("Arrangement Navn", -1, 50, 200, 20, 18)));
+        modifyArrangementPanel.add((makeLabel("Antal Deltagere", -1, 100, 200, 20, 18)));
 
         JButton confirm = makeButton("Bekræft",-1, 175, 150, 20, 20);
         confirm.addActionListener(e -> {
-            arrangementData.createArrangement(name.getText(), Integer.parseInt(participants.getText()));
+            if(arrayIndex == -1) {
+                arrangementData.createArrangement(nameInput.getText(), Integer.parseInt(participantsInput.getText()));
+            } else {
+                arrangementData.editArrangement(nameInput.getText(), Integer.parseInt(participantsInput.getText()), allArrangements.get(arrayIndex).getId());
+            }
             allArrangements = arrangementData.getArrangements();
-            changePanel(createArrangementPanel, overview());
+            changePanel(modifyArrangementPanel, overview());
         });
 
-        createArrangementPanel.add(name);
-        createArrangementPanel.add(participants);
-        createArrangementPanel.add(confirm);
-        createArrangementPanel.add(backButton("Anuller", createArrangementPanel, overview()));
+        modifyArrangementPanel.add(nameInput);
+        modifyArrangementPanel.add(participantsInput);
+        modifyArrangementPanel.add(confirm);
+        modifyArrangementPanel.add(backButton("Anuller", modifyArrangementPanel, overview()));
 
-        return createArrangementPanel;
+        return modifyArrangementPanel;
     }
 
 

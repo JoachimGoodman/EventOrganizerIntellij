@@ -70,7 +70,7 @@ public class DBArrangement {
         try {
             Connection conn = DriverManager.getConnection(url);
             Statement stmt = conn.createStatement();
-            stmt.execute("UPDATE Arrangement SET NAME = " + name + ", ATTENDEES = " + participants + " WHERE id = " + getId);
+            stmt.execute("UPDATE Arrangement SET NAME = '" + name + "', ATTENDEES = '" + participants + "' WHERE ID = '" + getId + "'");
 
             stmt.close();
             conn.close();
