@@ -111,8 +111,8 @@ public class Menu implements MenuInterface { // har programmets struktur
                 final int arrayIndex = i;
                 overviewPanel.add(makeLabel("" + allArrangements.get(i).getId(), 30, 80 + (35 * i), 200, 20, 14));
                 overviewPanel.add(makeLabel(allArrangements.get(i).getName(), 55, 80 + (35 * i), 200, 20, 14));
-                JButton recycleButton = makeImageButton(400, 80 + (35 * i), 20, 20, "resources/recycle_bin_20_20.png");
 
+                JButton recycleButton = makeImageButton(400, 80 + (35 * i), 20, 20, "resources/recycle_bin_20_20.png");
                 recycleButton.addActionListener(e -> {
                     arrangementData.deleteArrangement(allArrangements.get(arrayIndex).getId());
                     allArrangements.remove(arrayIndex);
@@ -160,7 +160,30 @@ public class Menu implements MenuInterface { // har programmets struktur
         arrangementInfoPanel.add(makeLabel("Events:", 50, 100, 200, 20, 16));
 
         for(int i = 0; i < allArrangements.get(arrayIndex).getEvents().size(); i++){
-            arrangementInfoPanel.add(makeLabel(allArrangements.get(arrayIndex).getEvents().get(i).getName(), 200, 200+(35*i), 200, 20, 20));
+            arrangementInfoPanel.add(makeLabel(allArrangements.get(arrayIndex).getEvents().get(i).getName(), 50, 200+(35*i), 200, 20, 20));
+
+            JButton recycleButton = makeImageButton(400, 200 + (35 * i), 20, 20, "resources/recycle_bin_20_20.png");
+            recycleButton.addActionListener(e -> {
+                arrangementData.deleteArrangement(allArrangements.get(arrayIndex).getId());
+                allArrangements.remove(arrayIndex);
+                changePanel(arrangementInfoPanel, overview());
+            });
+            JButton toolsButton = makeImageButton(422, 200 + (35 * i), 20, 20, "resources/tools_20_20.png");
+            toolsButton.addActionListener(e -> {
+                changePanel(arrangementInfoPanel, modifyArrangement(arrayIndex));
+            });
+            JButton inspectButton = makeImageButton(444, 200 + (35 * i), 20, 20, "resources/inspect_20_20.png");
+            inspectButton.addActionListener(e -> {
+                allArrangements.get(arrayIndex).addEvents(eventData.getEvents(allArrangements.get(arrayIndex).getId()));
+                changePanel(arrangementInfoPanel, arrangementInfo(arrayIndex));
+
+            });
+
+            arrangementInfoPanel.add(makeLabel("________________________________________", 25, 200 + (35 * i), 600, 50, 20));
+
+            arrangementInfoPanel.add(recycleButton);
+            arrangementInfoPanel.add(toolsButton);
+            arrangementInfoPanel.add(inspectButton);
         }
 
         arrangementInfoPanel.add(backButton("Tilbage", arrangementInfoPanel, overview()));
