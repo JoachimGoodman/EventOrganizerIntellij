@@ -10,8 +10,8 @@ public class Menu { // har programmets struktur
     private JFrame frame; // primære window
     private Container contentPane; // det som er inden for vinduet
     private DBLogin loginAccess = new DBLogin();
-    private ArrayList<Arrangement> allArrangements = loginAccess.getArrangements();
-    private Arrangement currentArrangement;
+    private DBArrangement arrangementData = new DBArrangement();
+    private ArrayList<Arrangement> allArrangements = arrangementData.getArrangements();
     private boolean isPowerUser;
 
     public Menu() {
@@ -32,46 +32,46 @@ public class Menu { // har programmets struktur
         /////////Enable for Testing///////////
         //contentPane.add(arrangementPanel());
 
+        /////////Enable for Testing///////////
+        //contentPane.add(createArrangement());
+
         frame.setVisible(true); // false som default. derfor gør vi det visible
     }
 
     private JPanel login() { // method som retunere et panel
-        JPanel setupPanel = new JPanel(); // nyt objekt af en Panel type til at kunne indsætte "content" i vores frame
-        setupPanel.setLayout(null); // sætter layout til null for ikke at være låst af Javas standard layouts og kunne rykke ting frit rundt
+        JPanel loginPanel = new JPanel(); // nyt objekt af en Panel type til at kunne indsætte "content" i vores frame
+        loginPanel.setLayout(null); // sætter layout til null for ikke at være låst af Javas standard layouts og kunne rykke ting frit rundt
 
         //Newer 2 textfields til username og password, med koordinatsæt og størrelse
-        JTextField usernameText = new JTextField();
-        usernameText.setBounds((frame.getWidth()/2)-(200/2), 225, 200, 20);
-        JTextField passwordText = new JTextField();
-        passwordText.setBounds((frame.getWidth()/2)-(200/2), 275, 200, 20);
+        JTextField usernameInput = makeTextField(-1, 225, 200, 20);
+        JPasswordField passwordInput = new JPasswordField();
+        passwordInput.setBounds((frame.getWidth()/2)-(200/2), 275, 200, 20);
 
         //Laver en Error label uden tekst da denne skal skiftes alt efter hvilken fejl der forekommer senere
         //Opretter og tilføjer også yderligere labels til panelet
         JLabel LError = makeLabel("", -1, 310, 200, 20, 18); // Error label
         LError.setForeground(Color.RED);
 
-        setupPanel.add(makeLabel("PlanOrgan", -1, 100, 250, 100, 50));
-        setupPanel.add(makeLabel("Username", -1, 200, 200, 20, 18));
-        setupPanel.add(makeLabel("Password", -1, 250, 200, 20, 18));
+        loginPanel.add(makeLabel("PlanOrgan", -1, 100, 250, 100, 50));
+        loginPanel.add(makeLabel("Username", -1, 200, 200, 20, 18));
+        loginPanel.add(makeLabel("Password", -1, 250, 200, 20, 18));
 
 
         //Laver en knap med koordinatsæt og størrelse
         JButton confirm = makeButton("Confirm", (frame.getWidth()/2)-(200/2), 350, 200, 50, 20);
         confirm.addActionListener(e -> { // bruger lambda udtryk for at simplificere actionlistener method
-            String usernameInput = usernameText.getText(); // tager det tekst der står i textfeltet
-            String passwordInput = passwordText.getText();
 
-            if (!loginAccess.checkUsername(usernameInput)) {  // bruger checkUsername methode for at checke om username stemmer over ens med det som er skrevet i tekstfeltet
+            if (!loginAccess.checkUsername(usernameInput.getText())) {  // bruger checkUsername methode for at checke om username stemmer over ens med det som er skrevet i tekstfeltet
                 LError.setText("No such Username"); // opdaterer label methode
             } else {
-                if (loginAccess.checkPassword(usernameInput, passwordInput)) {
-                    if(loginAccess.isPowerUser(usernameInput)){
+                if (loginAccess.checkPassword(usernameInput.getText(), String.valueOf(passwordInput.getPassword()))) {
+                    if(loginAccess.isPowerUser(usernameInput.getText())){
                         isPowerUser = true;
                     }
                     else {
                         isPowerUser = false;
                     }
-                    changePanel(setupPanel, secretaryPanel());
+                    changePanel(loginPanel, overview());
                 } else {
                     LError.setText("Wrong Password");
                 }
@@ -79,79 +79,116 @@ public class Menu { // har programmets struktur
         });
 
         // tilføjer vores textfelter og knap til panelet
-        setupPanel.add(usernameText);
-        setupPanel.add(passwordText);
-        setupPanel.add(confirm);
-        setupPanel.add(LError);
+        loginPanel.add(usernameInput);
+        loginPanel.add(passwordInput);
+        loginPanel.add(confirm);
+        loginPanel.add(LError);
 
         //Returnerer vores panel så det kan indsættes i vinduets container
-        return setupPanel;
+        return loginPanel;
     }
 
-    private JPanel secretaryPanel(){
-        JPanel setupPanel = new JPanel();
-        setupPanel.setLayout(null);
+    private JPanel overview(){
+        JPanel overviewPanel = new JPanel();
+        overviewPanel.setLayout(null);
 
         if(isPowerUser) {
-            setupPanel.add(makeLabel("Arrangementer:", 50, 100, 200, 20, 18));
-            JButton createButton = makeButton("Opret", 50, 25, 100, 25, 14);
-            JButton exportButton = makeButton("Eksporter", 300, 25, 100, 25, 14);
+            if(allArrangements.size() == 0) {
+                overviewPanel.add(makeLabel("Ingen Aktive Arrangementer", 50, 30, 250, 20, 18));
+            } else {
+                overviewPanel.add(makeLabel("Arrangementer:", 50, 30, 200, 20, 18));
+            }
+
+            JButton createButton = makeButton("Opret", 600, 150, 100, 25, 14);
+            createButton.addActionListener(e -> {
+                changePanel(overviewPanel, createArrangement());
+            });
+            JButton exportButton = makeButton("Eksporter", 600, 200, 100, 25, 14);
 
             //Tilføjer labels med navnene fra alle vores arrangementer og tilføjer de tre billedeknapper per navn til yderligere funktion
             for (int i = 0; i < allArrangements.size(); i++) {
                 final int arrayIndex = i;
-                setupPanel.add(makeLabel("" + allArrangements.get(i).getId(), 30, 140 + (35 * i), 200, 20, 14));
-                setupPanel.add(makeLabel(allArrangements.get(i).getName(), 50, 140 + (35 * i), 200, 20, 14));
-                JButton recycleButton = makeImageButton(400, 140 + (35 * i), 20, 20, "resources/recycle_bin_20_20.png");
+                overviewPanel.add(makeLabel("" + allArrangements.get(i).getId(), 30, 80 + (35 * i), 200, 20, 14));
+                overviewPanel.add(makeLabel(allArrangements.get(i).getName(), 55, 80 + (35 * i), 200, 20, 14));
+                JButton recycleButton = makeImageButton(400, 80 + (35 * i), 20, 20, "resources/recycle_bin_20_20.png");
 
                 recycleButton.addActionListener(e -> {
-                    loginAccess.deleteArrangement(allArrangements.get(arrayIndex).getId());
+                    arrangementData.deleteArrangement(allArrangements.get(arrayIndex).getId());
                     allArrangements.remove(arrayIndex);
-                    frame.revalidate();
-                    frame.repaint();
+                    changePanel(overviewPanel, overview());
                 });
-                JButton toolsButton = makeImageButton(422, 140 + (35 * i), 20, 20, "resources/tools_20_20.png");
+                JButton toolsButton = makeImageButton(422, 80 + (35 * i), 20, 20, "resources/tools_20_20.png");
                 toolsButton.addActionListener(e -> {
 
                 });
-                JButton inspectButton = makeImageButton(444, 140 + (35 * i), 20, 20, "resources/inspect_20_20.png");
+                JButton inspectButton = makeImageButton(444, 80 + (35 * i), 20, 20, "resources/inspect_20_20.png");
                 inspectButton.addActionListener(e -> {
-                    currentArrangement = allArrangements.get(arrayIndex);
-                    changePanel(setupPanel, arrangementPanel());
+                    changePanel(overviewPanel, arrangementInfo(arrayIndex));
 
                 });
 
-                setupPanel.add(makeLabel("_________________________________________", 25, 130 + (35 * i), 600, 50, 20));
+                overviewPanel.add(makeLabel("________________________________________", 25, 68 + (35 * i), 600, 50, 20));
 
-                setupPanel.add(recycleButton);
-                setupPanel.add(toolsButton);
-                setupPanel.add(inspectButton);
+                overviewPanel.add(recycleButton);
+                overviewPanel.add(toolsButton);
+                overviewPanel.add(inspectButton);
             }
 
-            setupPanel.add(createButton);
-            setupPanel.add(exportButton);
+            overviewPanel.add(createButton);
+            overviewPanel.add(exportButton);
         }
-            JButton importButton = makeButton("Importer", 175, 25, 100, 25, 14);
-            setupPanel.add(importButton);
+        overviewPanel.add(backButton("Log Ud", overviewPanel, login()));
+        JButton importButton = makeButton("Importer", 600, 250, 100, 25, 14);
+        importButton.addActionListener(e -> {
 
-        return setupPanel;
+        });
 
+        overviewPanel.add(importButton);
 
+        return overviewPanel;
     }
 
-    private JPanel arrangementPanel(){
-        JPanel setupPanel = new JPanel();
-        setupPanel.setLayout(null);
+    private JPanel arrangementInfo(int arrayIndex){
+        JPanel arrangementInfoPanel = new JPanel();
+        arrangementInfoPanel.setLayout(null);
+
         JButton createButton = makeButton("Opret", 650, 25, 100, 25, 14);
-        setupPanel.add(makeLabel(""+currentArrangement.getName(), 50, 50, 200, 20, 18));
-        setupPanel.add(makeLabel("Events:", 50, 100, 200, 20, 16));
+        arrangementInfoPanel.add(makeLabel("" + allArrangements.get(arrayIndex).getName(), 50, 50, 200, 20, 18));
+        arrangementInfoPanel.add(makeLabel("Events:", 50, 100, 200, 20, 16));
 
 
-        setupPanel.add(createButton);
+        arrangementInfoPanel.add(backButton("Tilbage", arrangementInfoPanel, overview()));
+
+        arrangementInfoPanel.add(createButton);
 
 
 
-        return setupPanel;
+        return arrangementInfoPanel;
+    }
+
+    private JPanel createArrangement(){
+        JPanel createArrangementPanel = new JPanel();
+        createArrangementPanel.setLayout(null);
+
+        JTextField name = makeTextField(-1, 75, 200, 20);
+        JTextField participants = makeTextField(-1, 125, 200, 20);
+
+        createArrangementPanel.add((makeLabel("Arrangement Navn", -1, 50, 200, 20, 18)));
+        createArrangementPanel.add((makeLabel("Antal Deltagere", -1, 100, 200, 20, 18)));
+
+        JButton confirm = makeButton("Bekræft",-1, 175, 150, 20, 20);
+        confirm.addActionListener(e -> {
+            arrangementData.createArrangement(name.getText(), Integer.parseInt(participants.getText()));
+            allArrangements = arrangementData.getArrangements();
+            changePanel(createArrangementPanel, overview());
+        });
+
+        createArrangementPanel.add(name);
+        createArrangementPanel.add(participants);
+        createArrangementPanel.add(confirm);
+        createArrangementPanel.add(backButton("Anuller", createArrangementPanel, overview()));
+
+        return createArrangementPanel;
     }
 
 
@@ -164,28 +201,41 @@ public class Menu { // har programmets struktur
 
 
 
-    //Metode til nemt at lave labels
+
+    //Metode til nemt at lave labels, hvis x koordinatet sættes til -1 bliver lablet automatisk sat i midten af skærmen
     private JLabel makeLabel(String title, int x, int y, int width, int height, int size) {
         JLabel label = new JLabel(title);
 
         if(x == -1){
             label.setBounds((frame.getWidth()/2)-(width/2), y, width, height);
-        }else{
+        } else{
             label.setBounds(x, y, width, height);
         }
         label.setFont(new Font("Arial", Font.PLAIN, size));
 
         return label;
     }
-    //Metode til nemt at lave knapper
+    //Metode til nemt at lave knapper, ligesom med label metode kan de automatisk blive centreret ved at sætte x til -1
     private JButton makeButton(String title, int x, int y, int width, int height, int size) {
         JButton button = new JButton(title);
-        button.setBounds(x, y, width, height);
+        if(x == -1) {
+            button.setBounds((frame.getWidth()/2)-(width/2), y, width, height);
+        } else{
+            button.setBounds(x, y, width, height);
+        }
         button.setFont(new Font("Arial", Font.PLAIN, size));
         button.setBackground(Color.BLACK);
         button.setForeground(Color.WHITE);
 
         return button;
+    }
+    //Udvidet metode til at lave tilbage knap, ved at bruge den eksisterende metode
+    private JButton backButton(String title, JPanel current, JPanel next){
+        JButton backButton = makeButton(title, 600, 500, 100, 30, 20);
+        backButton.addActionListener(e -> {
+            changePanel(current, next);
+        });
+        return backButton;
     }
     //Metode til at skifte panel og opdatere vores vindue
     private void changePanel(JPanel current, JPanel next){
@@ -193,6 +243,17 @@ public class Menu { // har programmets struktur
         contentPane.add(next);
         frame.revalidate();
         frame.repaint();
+    }
+    //Metode til at lave tekstfelter, ligesom med label metode kan de automatisk blive centreret ved at sætte x til -1
+    private JTextField makeTextField(int x, int y, int width, int height){
+        JTextField textField = new JTextField();
+        if(x == -1){
+            textField.setBounds((frame.getWidth()/2)-(width/2), y, width, height);
+        } else {
+            textField.setBounds(x, y, width, height);
+        }
+
+        return textField;
     }
     //Metode til at lave en billedeknap
     private JButton makeImageButton(int x, int y, int width, int height, String path){
