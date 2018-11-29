@@ -1,5 +1,4 @@
 import java.sql.*;
-import java.util.ArrayList;
 
 public class DBLogin {
 
@@ -69,74 +68,5 @@ public class DBLogin {
             System.out.println(e.getMessage());
         }
         return powerUser;
-    }
-
-    public ArrayList<Arrangement> getArrangements(){
-        ArrayList<Arrangement> arrangementList = new ArrayList<>();
-
-        try {
-            Connection conn = DriverManager.getConnection(url);
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Arrangement");
-
-            while (rs.next())
-            {
-                arrangementList.add(new Arrangement(
-                        rs.getInt("ID"),
-                        rs.getString("NAME"),
-                        rs.getDouble("TOTAL"),
-                        rs.getInt("TIME"),
-                        rs.getInt("EVENTS"),
-                        rs.getInt("ATTENDEES")
-                ));
-            }
-
-            rs.close();
-            stmt.close();
-            conn.close();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return arrangementList;
-    }
-
-    // DELETE ARRANGEMENT EVENTUELT NY CLASS SENERE
-    public void deleteArrangement(int id){
-
-        try {
-            Connection conn = DriverManager.getConnection(url);
-            Statement stmt = conn.createStatement();
-            stmt.execute("DELETE FROM Arrangement WHERE id ="+id);
-            
-            stmt.close();
-            conn.close();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    // CREATE NEW ARRANGEMENT
-    public void createArrangementDB(String name){
-        try {
-            Connection conn = DriverManager.getConnection(url);
-            Statement stmt = conn.createStatement();
-
-            String query = "INSERT INTO Arrangement (NAME, TOTAL, TIME, EVENTS, ATTENDEES) VALUES (?,?,?,?,?)";
-
-            PreparedStatement preparedStmt = conn.prepareStatement(query);
-            preparedStmt.setString      (1, name);
-            preparedStmt.setInt         (2, 1);
-            preparedStmt.setInt     (3, 2);
-            preparedStmt.setInt     (4, 3);
-            preparedStmt.setInt     (5, 4);
-
-            preparedStmt.execute();
-
-            stmt.close();
-            conn.close();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-
     }
 }
