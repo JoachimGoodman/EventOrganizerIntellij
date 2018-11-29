@@ -1,12 +1,12 @@
 public class Event {
-    String name;
-    float totalPrice;
-    String description;
-    String eventtype;
-    String dateStart;
-    String dateEnd;
-    String facilitator;
-    String xDescription;
+    private String name;
+    private float totalPrice;
+    private String description;
+    private String eventtype;
+    private String dateStart;
+    private String dateEnd;
+    private String facilitator;
+    private String xDescription;
 
     public Event(String name, float totalPrice, String description, String eventtype, String dateStart, String dateEnd, String facilitator, String xDescription) {
         this.name = name;

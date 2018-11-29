@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Arrangement {
 
     private int id;
@@ -18,12 +20,15 @@ public class Arrangement {
     public int getId(){
         return id;
     }
+
     public String getName(){
         return name;
     }
+
     public int getParticipants(){
         return participants;
     }
+
     public String show(){
         return name +
                 totalPrice +
