@@ -11,7 +11,7 @@ public class DBEvent {
         try {
             Connection conn = DriverManager.getConnection(url);
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Event WHERE ARRAGEMENTID = " + arrangementID);
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Event WHERE ARRANGEMENTID = '" + arrangementID + "'");
 
             while (rs.next())
             {
