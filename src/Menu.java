@@ -154,7 +154,7 @@ public class Menu { // har programmets struktur
 
         JButton createButton = makeButton("Opret", 650, 25, 100, 25, 14);
         arrangementInfoPanel.add(makeLabel("" + allArrangements.get(arrayIndex).getName(), 50, 50, 200, 20, 18));
-        arrangementInfoPanel.add(makeLabel("Deltagere: " + allArrangements.get(arrayIndex).getParticipants(), 50, 125, 200, 20, 16));
+        arrangementInfoPanel.add(makeLabel("Deltagere: " + allArrangements.get(arrayIndex).getParticipants(), 50, 75, 200, 20, 16));
         arrangementInfoPanel.add(makeLabel("Events:", 50, 100, 200, 20, 16));
 
 

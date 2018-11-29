@@ -18,9 +18,9 @@ public class DBArrangement {
                 arrangementList.add(new Arrangement(
                         rs.getInt("ID"),
                         rs.getString("NAME"),
-                        rs.getDouble("TOTAL"),
+                        rs.getFloat("TOTAL"),
                         rs.getInt("TIME"),
-                        rs.getInt("EVENTS"),
+                        rs.getInt("NUMBEROFEVENTS"),
                         rs.getInt("ATTENDEES")
                 ));
             }
