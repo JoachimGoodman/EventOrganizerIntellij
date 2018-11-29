@@ -128,11 +128,17 @@ public class Menu { // har programmets struktur
                 setupPanel.add(inspectButton);
             }
 
+            createButton.addActionListener(e -> {
+                changePanel(setupPanel, arrangementCreate());
+            });
+
             setupPanel.add(createButton);
             setupPanel.add(exportButton);
+
         }
             JButton importButton = makeButton("Importer", 175, 25, 100, 25, 14);
             setupPanel.add(importButton);
+
 
         return setupPanel;
 
@@ -147,6 +153,7 @@ public class Menu { // har programmets struktur
         setupPanel.add(makeLabel("Events:", 50, 100, 200, 20, 16));
 
 
+
         setupPanel.add(createButton);
 
 
@@ -155,7 +162,31 @@ public class Menu { // har programmets struktur
     }
 
 
+    private JPanel arrangementCreate(){
+        JPanel setupPanel = new JPanel();
+        setupPanel.setLayout(null);
 
+        setupPanel.add(makeLabel("Nyt Arrangement", 50, 50, 200, 20, 18));
+        setupPanel.add(makeLabel("Navn:", 50, 100, 200, 20, 16));
+
+        JTextField NameText = new JTextField();
+        NameText.setBounds(50, 150, 200, 20);
+
+        String nameTextInput = NameText.getText();
+
+
+        JButton opretButton = makeButton("Opret", 175, 25, 100, 25, 14);
+
+        opretButton.addActionListener(e -> {
+            loginAccess.createArrangementDB(nameTextInput);
+        });
+
+        setupPanel.add(NameText);
+        setupPanel.add(opretButton);
+
+
+        return setupPanel;
+    }
 
 
 

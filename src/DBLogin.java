@@ -114,4 +114,29 @@ public class DBLogin {
             System.out.println(e.getMessage());
         }
     }
+
+    // CREATE NEW ARRANGEMENT
+    public void createArrangementDB(String name){
+        try {
+            Connection conn = DriverManager.getConnection(url);
+            Statement stmt = conn.createStatement();
+
+            String query = "INSERT INTO Arrangement (NAME, TOTAL, TIME, EVENTS, ATTENDEES) VALUES (?,?,?,?,?)";
+
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setString      (1, name);
+            preparedStmt.setInt         (2, 1);
+            preparedStmt.setInt     (3, 2);
+            preparedStmt.setInt     (4, 3);
+            preparedStmt.setInt     (5, 4);
+
+            preparedStmt.execute();
+
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
 }
