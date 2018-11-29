@@ -55,7 +55,7 @@ public class DBArrangement {
         try {
             Connection conn = DriverManager.getConnection(url);
             Statement stmt = conn.createStatement();
-            stmt.execute("INSERT INTO Arrangement (NAME, TOTAL, TIME, EVENTS, ATTENDEES)" +
+            stmt.execute("INSERT INTO Arrangement (NAME, TOTAL, TIME, NUMBEROFEVENTS, ATTENDEES)" +
                     " VALUES ('" + name + "', '0', '0', '0', '" + participants + "')");
 
             stmt.close();
