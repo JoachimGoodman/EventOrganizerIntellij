@@ -23,4 +23,8 @@ public class Event {
         this.xDescription = xDescription;
         this.arrangementID = arrangementID;
     }
+
+    public String getName() {
+        return name;
+    }
 }

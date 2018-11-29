@@ -31,8 +31,12 @@ public class Arrangement {
         return participants;
     }
 
-    public void addEvent(ArrayList<Event> eventList){
+    public void addEvents(ArrayList<Event> eventList){
         listOfEvents = eventList;
+    }
+
+    public ArrayList<Event> getEvents(){
+        return listOfEvents;
     }
 
     public String show(){

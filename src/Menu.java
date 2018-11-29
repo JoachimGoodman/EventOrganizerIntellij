@@ -124,7 +124,7 @@ public class Menu { // har programmets struktur
                 });
                 JButton inspectButton = makeImageButton(444, 80 + (35 * i), 20, 20, "resources/inspect_20_20.png");
                 inspectButton.addActionListener(e -> {
-                    arrangementData.getArrangements().get(arrayIndex).addEvent(eventData.getEvents(arrayIndex));
+                    allArrangements.get(arrayIndex).addEvents(eventData.getEvents(allArrangements.get(arrayIndex).getId()));
                     changePanel(overviewPanel, arrangementInfo(arrayIndex));
 
                 });
@@ -155,10 +155,13 @@ public class Menu { // har programmets struktur
         arrangementInfoPanel.setLayout(null);
 
         JButton createButton = makeButton("Opret", 650, 25, 100, 25, 14);
-        arrangementInfoPanel.add(makeLabel("" + allArrangements.get(arrayIndex).getName(), 50, 50, 200, 20, 18));
+        arrangementInfoPanel.add(makeLabel(allArrangements.get(arrayIndex).getName(), 50, 50, 200, 20, 18));
         arrangementInfoPanel.add(makeLabel("Deltagere: " + allArrangements.get(arrayIndex).getParticipants(), 50, 75, 200, 20, 16));
         arrangementInfoPanel.add(makeLabel("Events:", 50, 100, 200, 20, 16));
 
+        for(int i = 0; i < allArrangements.get(arrayIndex).getEvents().size(); i++){
+            arrangementInfoPanel.add(makeLabel(allArrangements.get(arrayIndex).getEvents().get(i).getName(), 200, 200+(35*i), 200, 20, 20));
+        }
 
         arrangementInfoPanel.add(backButton("Tilbage", arrangementInfoPanel, overview()));
 
