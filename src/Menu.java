@@ -164,18 +164,14 @@ public class Menu implements MenuInterface { // har programmets struktur
 
             JButton recycleButton = makeImageButton(400, 200 + (35 * i), 20, 20, "resources/recycle_bin_20_20.png");
             recycleButton.addActionListener(e -> {
-                arrangementData.deleteArrangement(allArrangements.get(arrayIndex).getId());
-                allArrangements.remove(arrayIndex);
-                changePanel(arrangementInfoPanel, overview());
+
             });
             JButton toolsButton = makeImageButton(422, 200 + (35 * i), 20, 20, "resources/tools_20_20.png");
             toolsButton.addActionListener(e -> {
-                changePanel(arrangementInfoPanel, modifyArrangement(arrayIndex));
+
             });
             JButton inspectButton = makeImageButton(444, 200 + (35 * i), 20, 20, "resources/inspect_20_20.png");
             inspectButton.addActionListener(e -> {
-                allArrangements.get(arrayIndex).addEvents(eventData.getEvents(allArrangements.get(arrayIndex).getId()));
-                changePanel(arrangementInfoPanel, arrangementInfo(arrayIndex));
 
             });
 

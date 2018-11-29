@@ -35,6 +35,10 @@ public class Arrangement {
         listOfEvents = eventList;
     }
 
+    public void addEvent(Event event){
+        listOfEvents.add(event);
+    }
+
     public ArrayList<Event> getEvents(){
         return listOfEvents;
     }
