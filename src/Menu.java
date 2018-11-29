@@ -5,7 +5,7 @@ import java.awt.image.*;
 import java.io.*;
 import java.util.ArrayList;
 
-public class Menu { // har programmets struktur
+public class Menu implements MenuInterface { // har programmets struktur
 
     private JFrame frame; // primære window
     private Container contentPane; // det som er inden for vinduet
@@ -39,7 +39,7 @@ public class Menu { // har programmets struktur
         frame.setVisible(true); // false som default. derfor gør vi det visible
     }
 
-    private JPanel login() { // method som retunere et panel
+    public JPanel login() { // method som retunere et panel
         JPanel loginPanel = new JPanel(); // nyt objekt af en Panel type til at kunne indsætte "content" i vores frame
         loginPanel.setLayout(null); // sætter layout til null for ikke at være låst af Javas standard layouts og kunne rykke ting frit rundt
 
@@ -89,7 +89,7 @@ public class Menu { // har programmets struktur
         return loginPanel;
     }
 
-    private JPanel overview(){
+    public JPanel overview(){
         JPanel overviewPanel = new JPanel();
         overviewPanel.setLayout(null);
 
@@ -150,7 +150,7 @@ public class Menu { // har programmets struktur
         return overviewPanel;
     }
 
-    private JPanel arrangementInfo(int arrayIndex){
+    public JPanel arrangementInfo(int arrayIndex){
         JPanel arrangementInfoPanel = new JPanel();
         arrangementInfoPanel.setLayout(null);
 
@@ -172,7 +172,7 @@ public class Menu { // har programmets struktur
         return arrangementInfoPanel;
     }
 
-    private JPanel modifyArrangement(int arrayIndex){
+    public JPanel modifyArrangement(int arrayIndex){
         JPanel modifyArrangementPanel = new JPanel();
         modifyArrangementPanel.setLayout(null);
 
@@ -201,7 +201,32 @@ public class Menu { // har programmets struktur
         return modifyArrangementPanel;
     }
 
+    public JPanel createEvent(){
+        JPanel createEventPanel = new JPanel();
+        createEventPanel.setLayout(null);
 
+
+
+        return createEventPanel;
+    }
+
+    public JPanel updateEvent(int arrayIndex){
+        JPanel updateEventPanel = new JPanel();
+        updateEventPanel.setLayout(null);
+
+
+
+        return updateEventPanel;
+    }
+
+    public JPanel eventInfo(int arrayIndex){
+        JPanel eventInfoPanel = new JPanel();
+        eventInfoPanel.setLayout(null);
+
+
+
+        return eventInfoPanel;
+    }
 
 
 
