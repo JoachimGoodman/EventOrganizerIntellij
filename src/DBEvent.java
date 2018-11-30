@@ -27,7 +27,7 @@ public class DBEvent extends DBController {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        super.closeConnection(-1);
+        super.closeConnection(true);
 
         return eventList;
     }

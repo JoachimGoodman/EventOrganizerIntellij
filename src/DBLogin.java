@@ -15,7 +15,7 @@ public class DBLogin extends DBController {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        super.closeConnection(-1);
+        super.closeConnection(true);
 
         return correctUsername;
     }
@@ -33,7 +33,7 @@ public class DBLogin extends DBController {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        super.closeConnection(-1);
+        super.closeConnection(true);
 
         return correctPassword;
     }
@@ -51,7 +51,7 @@ public class DBLogin extends DBController {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        super.closeConnection(-1);
+        super.closeConnection(true);
 
         return powerUser;
     }

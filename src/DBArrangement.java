@@ -22,7 +22,7 @@ public class DBArrangement extends DBController {
         } catch (SQLException e){
             System.out.println(e.getMessage());
         }
-        super.closeConnection(-1);
+        super.closeConnection(true);
 
         return arrangementList;
     }
@@ -31,7 +31,8 @@ public class DBArrangement extends DBController {
     public void deleteArrangement(int id){
 
         super.statementExecute("DELETE FROM Arrangement WHERE ID = " + id);
-        super.closeConnection(0);
+        super.statementExecute("DELEte FROM EVENT WHERE ARRANGEMENTID = " + id);
+        super.closeConnection(false);
 
     }
 
@@ -40,7 +41,7 @@ public class DBArrangement extends DBController {
 
         super.statementExecute("INSERT INTO Arrangement (NAME, TOTAL, TIME, NUMBEROFEVENTS, ATTENDEES)" +
                 " VALUES ('" + name + "', '0', '0', '0', '" + participants + "')");
-        super.closeConnection(0);
+        super.closeConnection(false);
 
     }
 
@@ -48,6 +49,6 @@ public class DBArrangement extends DBController {
     public void editArrangement(String name, int participants, int getId) {
 
         super.statementExecute("UPDATE Arrangement SET NAME = '" + name + "', ATTENDEES = '" + participants + "' WHERE ID = '" + getId + "'");
-        super.closeConnection(0);
+        super.closeConnection(false);
     }
 }
