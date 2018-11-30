@@ -29,13 +29,13 @@ public class Menu implements MenuInterface { // har programmets struktur
         contentPane.add(login()); // tilføjer vores method som en panel ind i vores container
 
         /////////Enable for Testing///////////
-        //contentPane.add(secretaryPanel());
+        //contentPane.add(overview());
 
         /////////Enable for Testing///////////
-        //contentPane.add(arrangementPanel());
+        //contentPane.add(arrangementInfo());
 
         /////////Enable for Testing///////////
-        //contentPane.add(createArrangement());
+        //contentPane.add(modifyArrangement());
 
         frame.setVisible(true); // false som default. derfor gør vi det visible
 
