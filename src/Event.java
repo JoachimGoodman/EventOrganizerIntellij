@@ -30,4 +30,7 @@ public class Event {
     public int getId() {
         return id;
     }
+    public int getArrangementID(){
+        return arrangementID;
+    }
 }
