@@ -8,9 +8,10 @@ public class Arrangement {
     private int duration;
     private int numberOfEvents;
     private int participants;
+    private String host;
     private ArrayList<Event> listOfEvents;
 
-    public Arrangement(int id, String name, float totalPrice, int duration, int numberOfEvents, int participations){
+    public Arrangement(int id, String name, float totalPrice, int duration, int numberOfEvents, int participations, String host){
         listOfEvents = new ArrayList<>();
         this.id = id;
         this.name = name;
@@ -18,6 +19,7 @@ public class Arrangement {
         this.duration = duration;
         this.numberOfEvents = numberOfEvents;
         this.participants = participations;
+        this.host = host;
     }
     public int getId(){
         return id;
@@ -41,6 +43,10 @@ public class Arrangement {
 
     public ArrayList<Event> getEvents(){
         return listOfEvents;
+    }
+
+    public String getHost(){
+        return host;
     }
 
     public String show(){

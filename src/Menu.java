@@ -165,6 +165,7 @@ public class Menu implements MenuInterface { // har programmets struktur
             changePanel(arrangementInfoPanel, createEvent(arrangementIndex));
         });
 
+        arrangementInfoPanel.add(makeLabel("Kunde: " + allArrangements.get(arrangementIndex).getHost(), 50, 125, 200, 20, 16));
         arrangementInfoPanel.add(makeLabel(allArrangements.get(arrangementIndex).getName(), 50, 50, 200, 20, 18));
         arrangementInfoPanel.add(makeLabel("Deltagere: " + allArrangements.get(arrangementIndex).getParticipants(), 50, 75, 200, 20, 16));
         arrangementInfoPanel.add(makeLabel("Events:", 50, 100, 200, 20, 16));
@@ -172,25 +173,25 @@ public class Menu implements MenuInterface { // har programmets struktur
         for(int i = 0; i < allArrangements.get(arrangementIndex).getEvents().size(); i++){
             final int index = i;
 
-            arrangementInfoPanel.add(makeLabel(allArrangements.get(arrangementIndex).getEvents().get(i).getName(), 25, 130+(35*i), 200, 20, 16));
+            arrangementInfoPanel.add(makeLabel(allArrangements.get(arrangementIndex).getEvents().get(i).getName(), 25, 150+(35*i), 200, 20, 16));
 
-            JButton recycleButton = makeImageButton(400, 130 + (35 * i), 20, 20, "resources/recycle_bin_20_20.png");
+            JButton recycleButton = makeImageButton(400, 150 + (35 * i), 20, 20, "resources/recycle_bin_20_20.png");
             recycleButton.addActionListener(e -> {
 
                 eventData.deleteEvent(allEvents.get(index).getId());
                 allEvents.remove(index);
                 changePanel(arrangementInfoPanel, arrangementInfo(arrangementIndex));
             });
-            JButton toolsButton = makeImageButton(422, 130 + (35 * i), 20, 20, "resources/tools_20_20.png");
+            JButton toolsButton = makeImageButton(422, 150 + (35 * i), 20, 20, "resources/tools_20_20.png");
             toolsButton.addActionListener(e -> {
 
             });
-            JButton inspectButton = makeImageButton(444, 130 + (35 * i), 20, 20, "resources/inspect_20_20.png");
+            JButton inspectButton = makeImageButton(444, 150 + (35 * i), 20, 20, "resources/inspect_20_20.png");
             inspectButton.addActionListener(e -> {
 
             });
             //Grafisk streg der separerer de forskellige arrangementer
-            arrangementInfoPanel.add(makeLabel("________________________________________", 25, 118 + (35 * i), 600, 50, 20));
+            arrangementInfoPanel.add(makeLabel("________________________________________", 25, 138 + (35 * i), 600, 50, 20));
 
             arrangementInfoPanel.add(recycleButton);
             arrangementInfoPanel.add(toolsButton);

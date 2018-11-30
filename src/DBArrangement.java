@@ -16,7 +16,8 @@ public class DBArrangement extends DBController {
                         rs.getFloat("TOTAL"),
                         rs.getInt("TIME"),
                         rs.getInt("NUMBEROFEVENTS"),
-                        rs.getInt("ATTENDEES")
+                        rs.getInt("ATTENDEES"),
+                        rs.getString("HOST")
                 ));
             }
         } catch (SQLException e){
