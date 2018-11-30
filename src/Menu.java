@@ -86,7 +86,7 @@ public class Menu implements MenuInterface { // har programmets struktur
         loginPanel.add(confirm);
         loginPanel.add(LError);
 
-        //Enter funktionalitet
+        //Enter funktionalitet, man kan sætte en knap til at registrere ENTER (confirm)
         frame.getRootPane().setDefaultButton(confirm);
 
         //Returnerer vores panel så det kan indsættes i vinduets container
@@ -179,7 +179,7 @@ public class Menu implements MenuInterface { // har programmets struktur
             inspectButton.addActionListener(e -> {
 
             });
-
+            //Grafisk streg der separerer de forskellige arrangementer
             arrangementInfoPanel.add(makeLabel("________________________________________", 25, 118 + (35 * i), 600, 50, 20));
 
             arrangementInfoPanel.add(recycleButton);
@@ -225,7 +225,7 @@ public class Menu implements MenuInterface { // har programmets struktur
         modifyArrangementPanel.add(nameInput);
         modifyArrangementPanel.add(participantsInput);
         modifyArrangementPanel.add(confirm);
-        modifyArrangementPanel.add(backButton("Anuller", modifyArrangementPanel, overview()));
+        modifyArrangementPanel.add(backButton("Annuller", modifyArrangementPanel, overview()));
 
         return modifyArrangementPanel;
     }
