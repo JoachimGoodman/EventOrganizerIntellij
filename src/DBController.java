@@ -35,8 +35,8 @@ public abstract class DBController {
     }
 
     //Metode til at lukke alle forbindelserne til databasen
-    public void closeConnection(int closeType) {
-        if (closeType == -1) {
+    public void closeConnection(boolean resultsetClose) {
+        if (true) {
             try {
                 rs.close();
                 stmt.close();
