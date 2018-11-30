@@ -175,7 +175,7 @@ public class Menu implements MenuInterface { // har programmets struktur
 
             });
 
-            arrangementInfoPanel.add(makeLabel("________________________________________", 25, 200 + (35 * i), 600, 50, 20));
+            arrangementInfoPanel.add(makeLabel("________________________________________", 25, 188 + (35 * i), 600, 50, 20));
 
             arrangementInfoPanel.add(recycleButton);
             arrangementInfoPanel.add(toolsButton);
