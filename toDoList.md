@@ -9,7 +9,6 @@
 
 
 ### Kode:
-1. Tilføj arrange vært/host til DB og GUI - **Markus**
 2. Opret Event under arrangement - **Isak & Saxo**
 3. Total pris for arrangement 
 4. Dato start/slut arrangement
