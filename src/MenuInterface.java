@@ -6,7 +6,7 @@ public interface MenuInterface {
     JPanel overview();
     JPanel arrangementInfo(int arrayIndex);
     JPanel modifyArrangement(int arrayIndex);
-    JPanel createEvent();
+    JPanel createEvent(int arrangementIndex);
     JPanel updateEvent(int arrayIndex);
     JPanel eventInfo(int arrayIndex);
 }

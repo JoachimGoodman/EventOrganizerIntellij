@@ -162,7 +162,7 @@ public class Menu implements MenuInterface { // har programmets struktur
 
         JButton createButton = makeButton("Opret", 650, 25, 100, 25, 14);
         createButton.addActionListener(e -> {
-            changePanel(arrangementInfoPanel, createEvent());
+            changePanel(arrangementInfoPanel, createEvent(arrangementIndex));
         });
 
         arrangementInfoPanel.add(makeLabel(allArrangements.get(arrangementIndex).getName(), 50, 50, 200, 20, 18));
@@ -240,34 +240,57 @@ public class Menu implements MenuInterface { // har programmets struktur
         return modifyArrangementPanel;
     }
 
-    public JPanel createEvent(){
+    public JPanel createEvent(int arrangementIndex){
         JPanel createEventPanel = new JPanel();
         createEventPanel.setLayout(null);
 
-        createEventPanel.add((makeLabel("Opret Nyt event", 50, 50, 200, 20, 18)));
-        createEventPanel.add((makeLabel("Navn", 50, 100, 200, 20, 18)));
-        JTextField eventNavn = makeTextField(50, 125,200,20);
+        createEventPanel.add((makeLabel("Opret Nyt event", 300, 50, 200, 20, 18)));
+        createEventPanel.add((makeLabel("Navn", 300, 100, 200, 20, 18)));
+        JTextField eventNavn = makeTextField(300, 125,200,20);
 
         createEventPanel.add(eventNavn);
 
-        createEventPanel.add((makeLabel("Description", 50, 150, 200, 20, 18)));
-        JTextField eventDescription = makeTextField(50, 175,200,20);
+        createEventPanel.add((makeLabel("Beskrivelse", 300, 150, 200, 20, 18)));
+        JTextField eventDescription = makeTextField(300, 175,200,20);
 
         createEventPanel.add(eventDescription);
 
-        createEventPanel.add((makeLabel("Type", 50, 200, 200, 20, 18)));
-        JTextField eventType = makeTextField(50, 225,200,20);
+        createEventPanel.add((makeLabel("Type", 300, 200, 200, 20, 18)));
+        JTextField eventType = makeTextField(300, 225,200,20);
 
         createEventPanel.add(eventType);
 
-        createEventPanel.add((makeLabel("Date Start", 50, 250, 200, 20, 18)));
-        JTextField eventDatestart = makeTextField(50, 275,200,20);
+        createEventPanel.add((makeLabel("Start Dato", 300, 250, 200, 20, 18)));
+        JTextField eventDatestart = makeTextField(300, 275,200,20);
 
         createEventPanel.add(eventDatestart);
 
+        createEventPanel.add((makeLabel("Slut dato", 300, 300, 200, 20, 18)));
+        JTextField eventDateend = makeTextField(300, 325,200,20);
+
+        createEventPanel.add(eventDateend);
+
+        createEventPanel.add((makeLabel("Facilitator", 300, 350, 200, 20, 18)));
+        JTextField eventFacilitator = makeTextField(300, 375,200,20);
+
+        createEventPanel.add(eventFacilitator);
+
+        createEventPanel.add((makeLabel("Notat", 300, 400, 200, 20, 18)));
+        JTextField eventNotice = makeTextField(300, 425,200,20);
+
+        createEventPanel.add(eventNotice);
 
 
+        JButton confirmButton = makeButton("Bekræft", 50, 470, 150, 40, 20);        confirmButton.addActionListener(e ->
 
+                changePanel(overview(), modifyArrangement(-1)));
+
+        createEventPanel.add(confirmButton);
+
+
+        JButton backButton = backButton("Tilbage",createEventPanel,arrangementInfo(arrangementIndex));
+
+        createEventPanel.add(backButton);
 
         return createEventPanel;
     }
