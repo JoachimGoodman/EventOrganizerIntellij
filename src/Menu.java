@@ -170,19 +170,16 @@ public class Menu implements MenuInterface { // har programmets struktur
         arrangementInfoPanel.add(makeLabel("Events:", 50, 100, 200, 20, 16));
 
         for(int i = 0; i < allArrangements.get(arrangementIndex).getEvents().size(); i++){
-            //final int index = i;
+            final int index = i;
 
-            //arrangementInfoPanel.add(makeLabel("" + allEvents.get(i).getId(), 30, 80 + (35 * i), 200, 20, 14));
-            //arrangementInfoPanel.add(makeLabel(allArrangements.get(arrangementIndex).getEvents().get(i).getName(), 25, 130+(35*i), 200, 20, 16));
+            arrangementInfoPanel.add(makeLabel(allArrangements.get(arrangementIndex).getEvents().get(i).getName(), 25, 130+(35*i), 200, 20, 16));
 
             JButton recycleButton = makeImageButton(400, 130 + (35 * i), 20, 20, "resources/recycle_bin_20_20.png");
             recycleButton.addActionListener(e -> {
 
                 eventData.deleteEvent(allEvents.get(index).getId());
                 allEvents.remove(index);
-                //eventData.deleteEvent(allEvents.get(index).getId());
-                //allEvents.remove(index);
-                //changePanel(arrangementInfoPanel, arrangementInfo(arrangementIndex));
+                changePanel(arrangementInfoPanel, arrangementInfo(arrangementIndex));
             });
             JButton toolsButton = makeImageButton(422, 130 + (35 * i), 20, 20, "resources/tools_20_20.png");
             toolsButton.addActionListener(e -> {
@@ -331,7 +328,7 @@ public class Menu implements MenuInterface { // har programmets struktur
     }
     //Udvidet metode til at lave tilbage knap, ved at bruge den eksisterende metode
     private JButton backButton(String title, JPanel current, JPanel next){
-        JButton backButton = makeButton(title, 600, 500, 100, 30, 16);
+        JButton backButton = makeButton(title, 600, 500, 100, 30, 20);
         backButton.addActionListener(e -> {
             changePanel(current, next);
         });
