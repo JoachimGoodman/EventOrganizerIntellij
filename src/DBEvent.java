@@ -1,18 +1,14 @@
 import java.sql.*;
 import java.util.ArrayList;
 
-public class DBEvent {
-
-    private static String url = "jdbc:sqlite:resources/EODatabase.db";
+public class DBEvent extends DBController {
 
     public ArrayList<Event> getEvents(int arrangementID){
+
         ArrayList<Event> eventList = new ArrayList<>();
+        ResultSet rs = super.resultsetQuery("SELECT * FROM Event WHERE ARRANGEMENTID = '" + arrangementID + "'");
 
         try {
-            Connection conn = DriverManager.getConnection(url);
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Event WHERE ARRANGEMENTID = '" + arrangementID + "'");
-
             while (rs.next())
             {
                 eventList.add(new Event(
@@ -28,13 +24,11 @@ public class DBEvent {
                         rs.getInt("ARRANGEMENTID")
                 ));
             }
-
-            rs.close();
-            stmt.close();
-            conn.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        super.closeConnection(-1);
+
         return eventList;
     }
 
