@@ -159,6 +159,7 @@ public class Menu implements MenuInterface { // har programmets struktur
         arrangementInfoPanel.setLayout(null);
 
         JButton createButton = makeButton("Opret", 650, 25, 100, 25, 14);
+
         arrangementInfoPanel.add(makeLabel(allArrangements.get(arrayIndex).getName(), 50, 50, 200, 20, 18));
         arrangementInfoPanel.add(makeLabel("Deltagere: " + allArrangements.get(arrayIndex).getParticipants(), 50, 75, 200, 20, 16));
         arrangementInfoPanel.add(makeLabel("Events:", 50, 100, 200, 20, 16));
@@ -200,7 +201,9 @@ public class Menu implements MenuInterface { // har programmets struktur
         modifyArrangementPanel.setLayout(null);
 
         JTextField nameInput = makeTextField(-1, 75, 200, 20);
+        nameInput.setText(allArrangements.get(arrayIndex).getName());
         JTextField participantsInput = makeTextField(-1, 125, 200, 20);
+        participantsInput.setText(String.valueOf(allArrangements.get(arrayIndex).getParticipants()));
 
         modifyArrangementPanel.add((makeLabel("Arrangement Navn", -1, 50, 200, 20, 18)));
         modifyArrangementPanel.add((makeLabel("Antal Deltagere", -1, 100, 200, 20, 18)));
