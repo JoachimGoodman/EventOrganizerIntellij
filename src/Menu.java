@@ -13,6 +13,7 @@ public class Menu implements MenuInterface { // har programmets struktur
     private DBArrangement arrangementData = new DBArrangement();
     private DBEvent eventData = new DBEvent();
     private ArrayList<Arrangement> allArrangements = arrangementData.getArrangements();
+    private ArrayList<Event> allEvents;
     private boolean isPowerUser;
 
     public Menu() {
@@ -28,15 +29,16 @@ public class Menu implements MenuInterface { // har programmets struktur
         contentPane.add(login()); // tilføjer vores method som en panel ind i vores container
 
         /////////Enable for Testing///////////
-        //contentPane.add(secretaryPanel());
+        //contentPane.add(overview());
 
         /////////Enable for Testing///////////
-        //contentPane.add(arrangementPanel());
+        //contentPane.add(arrangementInfo());
 
         /////////Enable for Testing///////////
-        //contentPane.add(createArrangement());
+        //contentPane.add(modifyArrangement());
 
         frame.setVisible(true); // false som default. derfor gør vi det visible
+
     }
 
     public JPanel login() { // method som retunere et panel
@@ -85,6 +87,9 @@ public class Menu implements MenuInterface { // har programmets struktur
         loginPanel.add(confirm);
         loginPanel.add(LError);
 
+        //Enter funktionalitet, man kan sætte en knap til at registrere ENTER (confirm)
+        frame.getRootPane().setDefaultButton(confirm);
+
         //Returnerer vores panel så det kan indsættes i vinduets container
         return loginPanel;
     }
@@ -108,24 +113,25 @@ public class Menu implements MenuInterface { // har programmets struktur
 
             //Tilføjer labels med navnene fra alle vores arrangementer og tilføjer de tre billedeknapper per navn til yderligere funktion
             for (int i = 0; i < allArrangements.size(); i++) {
-                final int arrayIndex = i;
+                final int arrangementIndex = i;
                 overviewPanel.add(makeLabel("" + allArrangements.get(i).getId(), 30, 80 + (35 * i), 200, 20, 14));
                 overviewPanel.add(makeLabel(allArrangements.get(i).getName(), 55, 80 + (35 * i), 200, 20, 14));
 
                 JButton recycleButton = makeImageButton(400, 80 + (35 * i), 20, 20, "resources/recycle_bin_20_20.png");
                 recycleButton.addActionListener(e -> {
-                    arrangementData.deleteArrangement(allArrangements.get(arrayIndex).getId());
-                    allArrangements.remove(arrayIndex);
+                    arrangementData.deleteArrangement(allArrangements.get(arrangementIndex).getId());
+                    allArrangements.remove(arrangementIndex);
                     changePanel(overviewPanel, overview());
                 });
                 JButton toolsButton = makeImageButton(422, 80 + (35 * i), 20, 20, "resources/tools_20_20.png");
                 toolsButton.addActionListener(e -> {
-                    changePanel(overviewPanel, modifyArrangement(arrayIndex));
+                    changePanel(overviewPanel, modifyArrangement(arrangementIndex));
                 });
                 JButton inspectButton = makeImageButton(444, 80 + (35 * i), 20, 20, "resources/inspect_20_20.png");
                 inspectButton.addActionListener(e -> {
-                    allArrangements.get(arrayIndex).addEvents(eventData.getEvents(allArrangements.get(arrayIndex).getId()));
-                    changePanel(overviewPanel, arrangementInfo(arrayIndex));
+                    allArrangements.get(arrangementIndex).addEvents(eventData.getEvents(allArrangements.get(arrangementIndex).getId()));
+                    //allEvents = allArrangements.get(arrangementIndex).getEvents();
+                    changePanel(overviewPanel, arrangementInfo(arrangementIndex));
 
                 });
 
@@ -150,32 +156,41 @@ public class Menu implements MenuInterface { // har programmets struktur
         return overviewPanel;
     }
 
-    public JPanel arrangementInfo(int arrayIndex){
+    public JPanel arrangementInfo(int arrangementIndex){
         JPanel arrangementInfoPanel = new JPanel();
         arrangementInfoPanel.setLayout(null);
 
         JButton createButton = makeButton("Opret", 650, 25, 100, 25, 14);
-        arrangementInfoPanel.add(makeLabel(allArrangements.get(arrayIndex).getName(), 50, 50, 200, 20, 18));
-        arrangementInfoPanel.add(makeLabel("Deltagere: " + allArrangements.get(arrayIndex).getParticipants(), 50, 75, 200, 20, 16));
+        createButton.addActionListener(e -> {
+            changePanel(arrangementInfoPanel, createEvent());
+        });
+
+        arrangementInfoPanel.add(makeLabel(allArrangements.get(arrangementIndex).getName(), 50, 50, 200, 20, 18));
+        arrangementInfoPanel.add(makeLabel("Deltagere: " + allArrangements.get(arrangementIndex).getParticipants(), 50, 75, 200, 20, 16));
         arrangementInfoPanel.add(makeLabel("Events:", 50, 100, 200, 20, 16));
 
-        for(int i = 0; i < allArrangements.get(arrayIndex).getEvents().size(); i++){
-            arrangementInfoPanel.add(makeLabel(allArrangements.get(arrayIndex).getEvents().get(i).getName(), 50, 200+(35*i), 200, 20, 20));
+        for(int i = 0; i < allArrangements.get(arrangementIndex).getEvents().size(); i++){
+            final int index = i;
 
-            JButton recycleButton = makeImageButton(400, 200 + (35 * i), 20, 20, "resources/recycle_bin_20_20.png");
+            arrangementInfoPanel.add(makeLabel(allArrangements.get(arrangementIndex).getEvents().get(i).getName(), 25, 130+(35*i), 200, 20, 16));
+
+            JButton recycleButton = makeImageButton(400, 130 + (35 * i), 20, 20, "resources/recycle_bin_20_20.png");
             recycleButton.addActionListener(e -> {
 
+                //eventData.deleteEvent(allEvents.get(index).getId());
+                //allEvents.remove(index);
+                changePanel(arrangementInfoPanel, arrangementInfo(arrangementIndex));
             });
-            JButton toolsButton = makeImageButton(422, 200 + (35 * i), 20, 20, "resources/tools_20_20.png");
+            JButton toolsButton = makeImageButton(422, 130 + (35 * i), 20, 20, "resources/tools_20_20.png");
             toolsButton.addActionListener(e -> {
 
             });
-            JButton inspectButton = makeImageButton(444, 200 + (35 * i), 20, 20, "resources/inspect_20_20.png");
+            JButton inspectButton = makeImageButton(444, 130 + (35 * i), 20, 20, "resources/inspect_20_20.png");
             inspectButton.addActionListener(e -> {
 
             });
-
-            arrangementInfoPanel.add(makeLabel("________________________________________", 25, 200 + (35 * i), 600, 50, 20));
+            //Grafisk streg der separerer de forskellige arrangementer
+            arrangementInfoPanel.add(makeLabel("________________________________________", 25, 118 + (35 * i), 600, 50, 20));
 
             arrangementInfoPanel.add(recycleButton);
             arrangementInfoPanel.add(toolsButton);
@@ -198,6 +213,11 @@ public class Menu implements MenuInterface { // har programmets struktur
         JTextField nameInput = makeTextField(-1, 75, 200, 20);
         JTextField participantsInput = makeTextField(-1, 125, 200, 20);
 
+        if(arrayIndex >= 0) {
+            nameInput.setText(allArrangements.get(arrayIndex).getName());
+            participantsInput.setText(String.valueOf(allArrangements.get(arrayIndex).getParticipants()));
+        }
+
         modifyArrangementPanel.add((makeLabel("Arrangement Navn", -1, 50, 200, 20, 18)));
         modifyArrangementPanel.add((makeLabel("Antal Deltagere", -1, 100, 200, 20, 18)));
 
@@ -215,7 +235,7 @@ public class Menu implements MenuInterface { // har programmets struktur
         modifyArrangementPanel.add(nameInput);
         modifyArrangementPanel.add(participantsInput);
         modifyArrangementPanel.add(confirm);
-        modifyArrangementPanel.add(backButton("Anuller", modifyArrangementPanel, overview()));
+        modifyArrangementPanel.add(backButton("Annuller", modifyArrangementPanel, overview()));
 
         return modifyArrangementPanel;
     }
@@ -223,6 +243,29 @@ public class Menu implements MenuInterface { // har programmets struktur
     public JPanel createEvent(){
         JPanel createEventPanel = new JPanel();
         createEventPanel.setLayout(null);
+
+        createEventPanel.add((makeLabel("Opret Nyt event", 50, 50, 200, 20, 18)));
+        createEventPanel.add((makeLabel("Navn", 50, 100, 200, 20, 18)));
+        JTextField eventNavn = makeTextField(50, 125,200,20);
+
+        createEventPanel.add(eventNavn);
+
+        createEventPanel.add((makeLabel("Description", 50, 150, 200, 20, 18)));
+        JTextField eventDescription = makeTextField(50, 175,200,20);
+
+        createEventPanel.add(eventDescription);
+
+        createEventPanel.add((makeLabel("Type", 50, 200, 200, 20, 18)));
+        JTextField eventType = makeTextField(50, 225,200,20);
+
+        createEventPanel.add(eventType);
+
+        createEventPanel.add((makeLabel("Date Start", 50, 250, 200, 20, 18)));
+        JTextField eventDatestart = makeTextField(50, 275,200,20);
+
+        createEventPanel.add(eventDatestart);
+
+
 
 
 
