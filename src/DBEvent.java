@@ -34,7 +34,7 @@ public class DBEvent extends DBController {
 
     public void deleteEvent(int id){
 
-        super.statementExecute("DELETE FROM Event WHERE ID = " + id);
+        super.statementExecute("DELETE FROM EVENT WHERE ID = " + id);
         //super.statementExecute("DELETE FROM EVENT WHERE ARRANGEMENTID = " + id);
         super.closeConnection(false);
 

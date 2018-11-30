@@ -130,7 +130,7 @@ public class Menu implements MenuInterface { // har programmets struktur
                 JButton inspectButton = makeImageButton(444, 80 + (35 * i), 20, 20, "resources/inspect_20_20.png");
                 inspectButton.addActionListener(e -> {
                     allArrangements.get(arrangementIndex).addEvents(eventData.getEvents(allArrangements.get(arrangementIndex).getId()));
-                    //allEvents = allArrangements.get(arrangementIndex).getEvents();
+                    allEvents = allArrangements.get(arrangementIndex).getEvents();
                     changePanel(overviewPanel, arrangementInfo(arrangementIndex));
 
                 });
@@ -177,6 +177,8 @@ public class Menu implements MenuInterface { // har programmets struktur
             JButton recycleButton = makeImageButton(400, 130 + (35 * i), 20, 20, "resources/recycle_bin_20_20.png");
             recycleButton.addActionListener(e -> {
 
+                eventData.deleteEvent(allEvents.get(index).getId());
+                allEvents.remove(index);
                 //eventData.deleteEvent(allEvents.get(index).getId());
                 //allEvents.remove(index);
                 changePanel(arrangementInfoPanel, arrangementInfo(arrangementIndex));
