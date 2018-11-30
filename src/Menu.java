@@ -13,6 +13,7 @@ public class Menu implements MenuInterface { // har programmets struktur
     private DBArrangement arrangementData = new DBArrangement();
     private DBEvent eventData = new DBEvent();
     private ArrayList<Arrangement> allArrangements = arrangementData.getArrangements();
+    private ArrayList<Event> allEvents;
     private boolean isPowerUser;
 
     public Menu() {
@@ -158,6 +159,8 @@ public class Menu implements MenuInterface { // har programmets struktur
         JPanel arrangementInfoPanel = new JPanel();
         arrangementInfoPanel.setLayout(null);
 
+        allEvents = eventData.getEvents(arrayIndex);
+
         JButton createButton = makeButton("Opret", 650, 25, 100, 25, 14);
 
         arrangementInfoPanel.add(makeLabel(allArrangements.get(arrayIndex).getName(), 50, 50, 200, 20, 18));
@@ -165,11 +168,15 @@ public class Menu implements MenuInterface { // har programmets struktur
         arrangementInfoPanel.add(makeLabel("Events:", 50, 100, 200, 20, 16));
 
         for(int i = 0; i < allArrangements.get(arrayIndex).getEvents().size(); i++){
+            final int index = i;
+
             arrangementInfoPanel.add(makeLabel(allArrangements.get(arrayIndex).getEvents().get(i).getName(), 25, 130+(35*i), 200, 20, 16));
 
             JButton recycleButton = makeImageButton(400, 130 + (35 * i), 20, 20, "resources/recycle_bin_20_20.png");
             recycleButton.addActionListener(e -> {
-
+                eventData.deleteEvent(allEvents.get(index).getId());
+                allEvents.remove(index);
+                changePanel(arrangementInfoPanel, overview());
             });
             JButton toolsButton = makeImageButton(422, 130 + (35 * i), 20, 20, "resources/tools_20_20.png");
             toolsButton.addActionListener(e -> {

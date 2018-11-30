@@ -31,7 +31,7 @@ public class DBArrangement extends DBController {
     public void deleteArrangement(int id){
 
         super.statementExecute("DELETE FROM Arrangement WHERE ID = " + id);
-        super.statementExecute("DELEte FROM EVENT WHERE ARRANGEMENTID = " + id);
+        super.statementExecute("DELETE FROM EVENT WHERE ARRANGEMENTID = " + id);
         super.closeConnection(false);
 
     }
