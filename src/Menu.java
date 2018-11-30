@@ -162,6 +162,9 @@ public class Menu implements MenuInterface { // har programmets struktur
         allEvents = eventData.getEvents(arrayIndex);
 
         JButton createButton = makeButton("Opret", 650, 25, 100, 25, 14);
+        createButton.addActionListener(e -> {
+            changePanel(arrangementInfoPanel, createEvent());
+        });
 
         arrangementInfoPanel.add(makeLabel(allArrangements.get(arrayIndex).getName(), 50, 50, 200, 20, 18));
         arrangementInfoPanel.add(makeLabel("Deltagere: " + allArrangements.get(arrayIndex).getParticipants(), 50, 75, 200, 20, 16));
@@ -240,6 +243,29 @@ public class Menu implements MenuInterface { // har programmets struktur
     public JPanel createEvent(){
         JPanel createEventPanel = new JPanel();
         createEventPanel.setLayout(null);
+
+        createEventPanel.add((makeLabel("Opret Nyt event", 50, 50, 200, 20, 18)));
+        createEventPanel.add((makeLabel("Navn", 50, 100, 200, 20, 18)));
+        JTextField eventNavn = makeTextField(50, 125,200,20);
+
+        createEventPanel.add(eventNavn);
+
+        createEventPanel.add((makeLabel("Description", 50, 150, 200, 20, 18)));
+        JTextField eventDescription = makeTextField(50, 175,200,20);
+
+        createEventPanel.add(eventDescription);
+
+        createEventPanel.add((makeLabel("Type", 50, 200, 200, 20, 18)));
+        JTextField eventType = makeTextField(50, 225,200,20);
+
+        createEventPanel.add(eventType);
+
+        createEventPanel.add((makeLabel("Date Start", 50, 250, 200, 20, 18)));
+        JTextField eventDatestart = makeTextField(50, 275,200,20);
+
+        createEventPanel.add(eventDatestart);
+
+
 
 
 
