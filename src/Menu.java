@@ -37,6 +37,7 @@ public class Menu implements MenuInterface { // har programmets struktur
         //contentPane.add(createArrangement());
 
         frame.setVisible(true); // false som default. derfor gør vi det visible
+
     }
 
     public JPanel login() { // method som retunere et panel
@@ -84,6 +85,9 @@ public class Menu implements MenuInterface { // har programmets struktur
         loginPanel.add(passwordInput);
         loginPanel.add(confirm);
         loginPanel.add(LError);
+
+        //Enter funktionalitet
+        frame.getRootPane().setDefaultButton(confirm);
 
         //Returnerer vores panel så det kan indsættes i vinduets container
         return loginPanel;
